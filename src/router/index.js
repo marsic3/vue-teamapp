@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Projects from '@/components/Projects/Projects'
+import ListOfProjects from '@/components/Projects/ListOfProjects'
 import CreateProject from '@/components/Projects/CreateProject'
+import Project from '@/components/Projects/Project'
 import Profile from '@/components/Users/Profile'
 import SignIn from '@/components/Users/SignIn'
 import SignUp from '@/components/Users/SignUp'
@@ -26,13 +27,19 @@ export default new Router({
     },
     {
       path: '/projects',
-      name: 'Projects',
-      component: Projects
+      name: 'ListOfProjects',
+      component: ListOfProjects
     },
     {
-      path: '/createproject',
+      path: '/projects/new',
       name: 'CreateProject',
       component: CreateProject
+    },
+    {
+      path: '/projects/:id',
+      name: 'Project',
+      props: true,
+      component: Project
     },
     {
       path: '/profile',
