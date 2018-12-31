@@ -99,10 +99,22 @@
         v-for="item in menuItems"
         :key="item.icon"
         :to="item.link"
-        >
-        <v-icon
         
-        >{{item.icon}}</v-icon>
+        >
+        <v-icon>{{item.icon}} </v-icon>
+        <v-list-tile-title style="padding-left:5px">
+                {{ item.text }}
+              </v-list-tile-title>
+      </v-btn>
+      <v-btn   
+        v-if="userIsAuth"
+        flat
+        @click="onLogout"
+        >
+        <v-icon>exit_to_app</v-icon>
+        <v-list-tile-title style="padding-left:5px">
+               Logout
+              </v-list-tile-title>
       </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -118,51 +130,53 @@
 
 <script>
 
-  export default {
-    data: () => ({
+export default {
+  data: () => ({
       dialog: false,
       drawer: null,
-      items: [
+    }),
+  computed: {
+  items() {
+    let items = [
+      ]
+    if(this.userIsAuth){
+      items = [
         { icon: 'home', text: 'Home', link:'/home'},
         { icon: 'contacts', text: 'Employees', link:'/listofusers' },
         { icon: 'folder_open', text: 'Projects', link:'/projects' },
         { icon: 'event', text: 'Holidays', link:'/holidays' },
-        // { icon: 'chat_bubble', text: 'Send feedback' },
-        // { icon: 'help', text: 'Help' },
-        // { icon: 'keyboard', text: 'Go to the old version' }
-        // { icon: 'history', text: 'Last activities' },
-        // { icon: 'content_copy', text: 'Duplicates' },
-        // {
-        //   icon: 'keyboard_arrow_up',
-        //   'icon-alt': 'keyboard_arrow_down',
-        //   text: 'Labels',
-        //   model: true,
-        //   children: [
-        //     { icon: 'add', text: 'Create label' }
-        //   ]
-        // },
-        // {
-        //   icon: 'keyboard_arrow_up',
-        //   'icon-alt': 'keyboard_arrow_down',
-        //   text: 'More',
-        //   model: false,
-        //   children: [
-        //     { text: 'Import' },
-        //     { text: 'Export' },
-        //     { text: 'Print' },
-        //     { text: 'Undo changes' },
-        //     { text: 'Other contacts' }
-        //   ]
-        // },
-      ],
-      menuItems:[
-        { icon: 'account_circle', link:'/profile'},
-        { icon: 'contacts', link:'/signin' }, 
-
       ]
-    }),
+    }
+    return items
+  },
+  menuItems(){
+    let menuItems = [
+        { icon: 'lock_open', text: ' Sign in', link:'/signin' }, 
+        { icon: 'face', text: 'Sign up', link:'/signup' }, 
+
+        ]
+    if(this.userIsAuth){
+        menuItems = [
+        { icon: 'account_circle',text: ' Profile', link:'/profile'},
+        // { icon: 'exit_to_app',text: 'Log out', link:'/' }, 
+        ]
+      }
+      return menuItems
+    },
+    userIsAuth(){
+      return this.$store.getters.user !== null && this.$store.getters.user !== 'undefined'
+    }
+},
+  methods: {
+    onLogout(){
+      this.$store.dispatch('logout')
+    }
+  },
     props: {
       source: String
     }
   }
 </script>
+<style lang="stylus">
+  @import './stylus/main'
+</style>

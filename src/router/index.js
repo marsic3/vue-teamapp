@@ -9,7 +9,7 @@ import SignIn from '@/components/Users/SignIn'
 import SignUp from '@/components/Users/SignUp'
 import ListOfUsers from '@/components/Users/ListOfUsers'
 import Holidays from '@/components/Holidays/Holidays'
-
+import auth from './auth'
 
 Vue.use(Router)
 
@@ -33,7 +33,8 @@ export default new Router({
     {
       path: '/projects/new',
       name: 'CreateProject',
-      component: CreateProject
+      component: CreateProject,
+      beforeEnter: auth
     },
     {
       path: '/projects/:id',
@@ -44,7 +45,8 @@ export default new Router({
     {
       path: '/profile',
       name: 'Profile',
-      component: Profile
+      component: Profile,
+      beforeEnter: auth
     },
     {
       path: '/listofusers',

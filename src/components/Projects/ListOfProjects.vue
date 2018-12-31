@@ -117,7 +117,10 @@
   </v-layout>
 </template>
 <script>
+import * as firebase from 'firebase'
+
 export default {
+  
     data() {
         return {
         dialog: false,
@@ -142,6 +145,13 @@ export default {
           this.$router.push('/projects/'+id)
       },
       onCreateProject(){
+          var element = 0
+          var num = this.$store.getters.loadedProjects.length
+          for (let i = 0; i < num; i++) {
+            element += num[i];
+            element++
+          }
+          console.log(typeof element)
           this.dialog = false
           console.log('project created')
           if(!this.formIsValid){
@@ -152,7 +162,8 @@ export default {
                email: this.email,
                imageUrl: this.imageUrl,
                description: this.description,
-               date: new Date()
+               date: new Date(),
+               id: num
           }
           this.$store.dispatch('createProject', projectData)
           this.$router.push('/projects')
