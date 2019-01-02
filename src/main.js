@@ -8,8 +8,9 @@ import "vue-material-design-icons/styles.css"
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import Alert from './components/Shared/Alert'
-
+import EditProjectDialog from './components/Projects/Edit/EditProjectDialog'
 import firebaseConfig from '../config/firebaseConfig'
+
 firebase.initializeApp(firebaseConfig)
 export const db = firebase.firestore()
 const settings = {timestampsInSnapshots: true};
@@ -19,6 +20,7 @@ Vue.use(Vuetify)
 // Vue.component("menu-icon", MenuIcon)
 Vue.config.productionTip = false
 Vue.component('app-alert', Alert)
+Vue.component('app-edit-project-dialog', EditProjectDialog)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -50,6 +50,35 @@ export const store = new Vuex.Store({
         setLoadedProjects(state,payload){
             state.loadedProjects = payload
         },
+        // updateProject(state,payload){
+        //     const project = state.loadedProjects.find(project => {
+        //         return project.id = payload.id
+        //     })
+        //     if(payload.projectName){
+        //         project.projectName = payload.projectName
+        //     }
+        //     if(payload.description){
+        //         project.description = payload.description
+        //     }
+        //     if(payload.date){
+        //         project.date = payload.date
+        //     }
+            
+        // },
+        updateProject (state, payload) {
+            const project = state.loadedProjects.find(project => {
+              return project.id === payload.id
+            })
+            if (payload.projectName) {
+                project.projectName = payload.projectName
+            }
+            if (payload.description) {
+                project.description = payload.description
+            }
+            if (payload.date) {
+              project.date = payload.date
+            }
+        },
         createProject(state,payload){
             state.loadedProjects.push(payload)
         },
@@ -69,6 +98,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         loadedProject({commit}, payload){
+            commit('setLoading', true)
             firebase.firestore().collection("projects").get()
             .then(function(querySnapshot) {
                 const projects = []
@@ -80,32 +110,90 @@ export const store = new Vuex.Store({
                         imageUrl: doc.data().imageUrl,
                         description: doc.data().description,
                         date: doc.data().date,
-                        id: doc.data().id
+                        id: doc.data().id,
+                        creatorId: doc.data().creatorId
+
                     }) 
                 })
                 commit('setLoadedProjects', projects)
-            })
+                commit('setLoading', false)
+
+            }).catch(
+                (error) => {
+                  console.log(error)
+                  commit('setLoading', false)
+                }
+              )
         },
-        createProject({commit}, payload) {
+        createProject({commit, getters}, payload) {
             const project = {
                 projectName: payload.projectName,
                 email: payload.email,
-                imageUrl: payload.imageUrl,
                 description: payload.description,
                 date: payload.date,
                 id: payload.id,
-                // creatorId: getters.user.id
+                creatorId: getters.user.id
             }
+            let imageUrl
+            let uploadTask
             firebase.firestore().collection("projects").doc("p"+project.id).set(project)
                 .then((user) => {
-                commit('createProject', project)
                 console.log("Document successfully written!"+user)
-            })  
-                .catch(error =>{
-                    console.log(error)
+            })  .then(() => {
+                const filename = payload.image.name
+                const ext = filename.slice(filename.lastIndexOf('.'))
+                // Create a root reference
+                const storageRef = firebase.storage().ref()
+                uploadTask = storageRef.child('projects/' + project.id + ext).put(payload.image)
+              })
+              .then(() => {
+                commit('setLoading', true)
+                uploadTask.on('state_changed', function (snapshot) {
+                }, function (error) {
+                  console.log(error)
+                  commit('setLoading', false)
+                }, function () {
+                  uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                    console.log('File available at', downloadURL)
+                    imageUrl = downloadURL
+                    if (imageUrl) {
+                        firebase.firestore().collection('projects').doc('p'+project.id).update({imageUrl: imageUrl})
+                      console.log('image updated')
+                      commit('createProject', {
+                        ...project,
+                        imageUrl: imageUrl,
+                        id: project.id
+                      })
+                      commit('setLoading', false)
+                    } else {
+                      commit('setLoading', false)
+                    }
+                  })
                 })
+              })
+            },
+        updateProjectData({commit}, payload){
+            commit('setLoading', true)
+            const updateObj = {}
+            if(payload.projectName){
+                updateObj.projectName = payload.projectName
+            }
+            if(payload.description){
+                updateObj.description = payload.description
+            }
             
-            console.log('project created'+ project.date)
+            firebase.firestore().collection("projects").doc("p"+payload.id).update(updateObj)
+            .then(()=>{
+                console.log("p"+payload.id)
+                commit('updateProject', payload)
+                commit('setLoading',false)
+
+            })
+            .catch((error)=>{
+                console.log(error)
+                commit('setLoading',false)
+
+            })
         },
         signUserUp({commit}, payload){
             commit('setLoading', true)
@@ -126,6 +214,7 @@ export const store = new Vuex.Store({
         },
         signUserIn({commit}, payload){
             commit('setLoading', true)
+            commit('clearError')
             firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
             .then(response => {
                 const newUser = {
@@ -161,8 +250,8 @@ export const store = new Vuex.Store({
         },
         loadedProject(state){
             return (projectId) =>   {
-            return state.loadedProjects.find((p1) => {
-                return p1.id==projectId
+            return state.loadedProjects.find((p) => {
+                return p.id==projectId
             })
         }
         },

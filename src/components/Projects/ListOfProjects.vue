@@ -9,14 +9,14 @@
           <v-layout row wrap>
             <v-flex 
               v-for="item in items"
-              v-bind="{ [`xs${item.flex}`]: true }"
+              v-bind="{ [`xs12`]: true }"
               :key="item.projectName"
               @click="onDetail(item.id)"
             >
               <v-card>
-                <v-img
+                <v-img 
                   :src="item.imageUrl"
-                  height="120px">
+                  :aspect-ratio="21/4">
                 </v-img>
                   <v-card-title>
                <div>
@@ -80,13 +80,8 @@
                             ></v-text-field>
                         </v-flex>
                         <v-flex xs12>
-                            <v-text-field
-                            prepend-icon="image"
-                            placeholder="Image URL"
-                            name="imageUrl"
-                            id="imageUrl"
-                            v-model="imageUrl"
-                            ></v-text-field>
+                          <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
+                           <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
                         </v-flex>
                         <v-layout row>
                             <v-flex xs12 sm6 offset-sm3>
@@ -127,7 +122,8 @@ export default {
         projectName:'',
         email:'',
         description:'',
-        imageUrl: ''
+        imageUrl: '',
+        image: null
         }
     },
   computed: {
@@ -157,16 +153,35 @@ export default {
           if(!this.formIsValid){
               return
           }
+          if(!this.image){
+              return
+          }
           const projectData = {
                projectName: this.projectName,
                email: this.email,
-               imageUrl: this.imageUrl,
+               image: this.image,
                description: this.description,
                date: new Date(),
                id: num
           }
           this.$store.dispatch('createProject', projectData)
           this.$router.push('/projects')
+      },
+      onPickFile(){
+        this.$refs.fileInput.click()
+      },
+      onFilePicked(event){
+        const files = event.target.files
+        let filename = files[0].name
+        if (filename.lastIndexOf('.') <= 0) {
+          return alert('Please add a valid file!')
+        }
+        const fileReader = new FileReader()
+        fileReader.addEventListener('load', () => {
+          this.imageUrl = fileReader.result
+        })
+        fileReader.readAsDataURL(files[0])
+        this.image = files[0]
       }
   }
 };

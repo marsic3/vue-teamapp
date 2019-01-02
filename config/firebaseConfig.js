@@ -3,5 +3,5 @@ export default {
     authDomain: 'teamapp-63a91.firebaseapp.com',
     databaseURL: 'https://teamapp-63a91.firebaseio.com',
     projectId: 'teamapp-63a91',
-    storageBucket: 'teamapp-63a91.appspot.com',
+    storageBucket: 'gs://teamapp-63a91.appspot.com',
  }
