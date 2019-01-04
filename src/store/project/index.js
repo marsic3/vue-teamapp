@@ -30,13 +30,13 @@ export default ({
 
     },
     actions: {
-        loadedProject({ commit }, payload) {
+        loadedProject({ commit }) {
             commit('setLoading', true)
             firebase.firestore().collection("projects").get()
                 .then(function (querySnapshot) {
                     const projects = []
                     querySnapshot.forEach(function (doc) {
-                        console.log(doc.id, " => ", doc.data());
+                        console.log(doc.id, " => ", doc.data())
                         projects.push({
                             projectName: doc.data().projectName,
                             email: doc.data().email,
@@ -45,7 +45,6 @@ export default ({
                             date: doc.data().date,
                             id: doc.data().id,
                             creatorId: doc.data().creatorId
-
                         })
                     })
                     commit('setLoadedProjects', projects)

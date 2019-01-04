@@ -184,5 +184,5 @@ export default {
         this.image = files[0]
       }
   }
-};
+}
 </script>

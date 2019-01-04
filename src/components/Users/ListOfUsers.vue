@@ -2,7 +2,7 @@
   <div style="margin:80px; max-width: 1250px">
     <v-flex xs12  offset-sm3 class="text-xs-center">
     <v-toolbar flat color="white">
-      <v-toolbar-title>Emplyees</v-toolbar-title>
+      <v-toolbar-title>Employees</v-toolbar-title>
       <v-divider
         class="mx-2"
         inset
@@ -18,15 +18,18 @@
 
           <v-card-text>
             <v-container grid-list-md>
-              <v-layout wrap>
+              <v-layout row offset-sm3 column fill-height>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.name" label="Email"></v-text-field>
+                  <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.carbs" label="Project"></v-text-field>
+                  <v-text-field v-model="editedItem.firstName" label="First Name"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="editedItem.protein" label="Position"></v-text-field>
+                  <v-text-field v-model="editedItem.lastName" label="Last Name"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="editedItem.position" label="Position"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -42,15 +45,15 @@
     </v-toolbar>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="users"
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.calories }}</td>
-        <td class="text-xs-right">{{ props.item.fat }}</td>
-        <td class="text-xs-right">{{ props.item.carbs }}</td>
-        <td class="text-xs-right">{{ props.item.protein }}</td>
+        <td>{{ props.item.id }}</td>
+        <td class="text-xs-left">{{ props.item.email }}</td>
+        <td class="text-xs-left">{{ props.item.firstName }}</td>
+        <td class="text-xs-left">{{ props.item.lastName }}</td>
+        <td class="text-xs-left">{{ props.item.position }}</td>
         <td class="justify-center layout px-0">
           <v-icon
             small
@@ -68,7 +71,7 @@
         </td>
       </template>
       <template slot="no-data">
-        <v-btn color="primary" @click="initialize">Reset</v-btn>
+        <v-btn color="primary">Reset</v-btn>
       </template>
     </v-data-table>
     </v-flex>
@@ -76,137 +79,72 @@
 </template>
 
 <script>
+import * as firebase from 'firebase'
   export default {
-    data: () => ({
+    data () {
+    return {
       dialog: false,
-      drawer: null,
       headers: [
         {
-          text: 'Email',
+          text: 'ID',
           align: 'left',
-          sortable: false,
-          value: 'name'
+          sortable: true,
+          value: 'id'
         },
-        { text: 'First Name', value: 'calories' },
-        { text: 'Last Name', value: 'calories' },
-        { text: 'Project', value: 'carbs' },
-        { text: 'Position', value: 'fat' },
+        { text: 'Email', value: 'email' },
+        { text: 'First Name', value: 'firstName' },
+        { text: 'Last Name', value: 'lastName' },
+        { text: 'Position', value: 'position' },
         { text: 'Actions', value: 'name', sortable: false }
       ],
-      desserts: [],
+      
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        email: '',
+        firstName: '',
+        lastName: '',
+        position: '',
+        id: 0
       },
       defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        email: '',
+        firstName: '',
+        lastName: '',
+        position: '',
+        id: 0
       }
-    }),
+    }
+    },
+
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Employee' : 'Edit Employee'
-      }
+        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+      },
+      users(){
+        return this.$store.getters.loadedEmployees
+      },
     },
+
     watch: {
       dialog (val) {
         val || this.close()
       }
     },
-    created () {
-      this.initialize()
-    },
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7
-          }
-        ]
-      },
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.editedIndex = this.users.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
+
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        const index = this.users.indexOf(item)
+        console.log(index)
+        confirm('Are you sure you want to delete this item?') 
+        && this.users.splice(index, 1)
+        && this.$store.dispatch('deleteEmployee', item.email )
       },
+
       close () {
         this.dialog = false
         setTimeout(() => {
@@ -214,14 +152,44 @@
           this.editedIndex = -1
         }, 300)
       },
+
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+        //   Object.assign(this.users[this.editedIndex], this.editedItem)
+            if (this.editedItem.email.trim() === '' || this.editedItem.firstName.trim() === '' || this.editedItem.lastName.trim() === '' || this.editedItem.position.trim() === '') {
+                return
+            }
+                this.dialog = false
+                const payload = {
+                id: this.editedItem.id,
+                email: this.editedItem.email,
+                firstName: this.editedItem.firstName,
+                lastName: this.editedItem.lastName,
+                position: this.editedItem.position
+                }
+                this.$store.dispatch('updateEmployeeData',payload)
         } else {
-          this.desserts.push(this.editedItem)
+          let num = this.$store.getters.loadedEmployees.length+1
+          console.log(num)
+          this.dialog = false
+          const userData = {
+               email: this.editedItem.email,
+               firstName: this.editedItem.firstName,
+               lastName: this.editedItem.lastName,
+               position: this.editedItem.position,
+               createdAt: new Date(),
+               id: num,
+          }
+          this.$store.dispatch('createEmployee', userData)
+          console.log('user created')
+          this.$router.push('/listofusers')
         }
         this.close()
-      }
+      },
+    //    onCreateProject(){
+         
+    //   },
+      
     }
   }
 </script>
