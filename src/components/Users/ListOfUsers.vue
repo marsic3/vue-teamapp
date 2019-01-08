@@ -49,12 +49,12 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
-        <td>{{ props.item.id }}</td>
+        <!-- <td>{{ props.item.key }}</td> -->
         <td class="text-xs-left">{{ props.item.email }}</td>
         <td class="text-xs-left">{{ props.item.firstName }}</td>
         <td class="text-xs-left">{{ props.item.lastName }}</td>
         <td class="text-xs-left">{{ props.item.position }}</td>
-        <td class="justify-center layout px-0">
+        <td class="text-xs-center layout ">
           <v-icon
             small
             class="mr-2"
@@ -85,12 +85,12 @@ import * as firebase from 'firebase'
     return {
       dialog: false,
       headers: [
-        {
-          text: 'ID',
-          align: 'left',
-          sortable: true,
-          value: 'id'
-        },
+        // {
+        //   text: 'ID',
+        //   align: 'left',
+        //   sortable: true,
+        //   value: 'key'
+        // },
         { text: 'Email', value: 'email' },
         { text: 'First Name', value: 'firstName' },
         { text: 'Last Name', value: 'lastName' },
@@ -104,14 +104,14 @@ import * as firebase from 'firebase'
         firstName: '',
         lastName: '',
         position: '',
-        id: 0
+        key: ''
       },
       defaultItem: {
         email: '',
         firstName: '',
         lastName: '',
         position: '',
-        id: 0
+        key: ''
       }
     }
     },
@@ -123,7 +123,17 @@ import * as firebase from 'firebase'
       users(){
         return this.$store.getters.loadedEmployees
       },
+      userIsAuth() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== 'undefiend'
+      },
+      userIsCreator() {
+        if (!this.userIsAuth) {
+          return false
+        }
+        return this.$store.getters.user.id === this.project.creatorId
+      },
     },
+
 
     watch: {
       dialog (val) {
@@ -133,16 +143,17 @@ import * as firebase from 'firebase'
     methods: {
       editItem (item) {
         this.editedIndex = this.users.indexOf(item)
+        console.log(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
         const index = this.users.indexOf(item)
-        console.log(index)
+        console.log("index"+item)
         confirm('Are you sure you want to delete this item?') 
         && this.users.splice(index, 1)
-        && this.$store.dispatch('deleteEmployee', item.email )
+        && this.$store.dispatch('deleteEmployee', item )
       },
 
       close () {
@@ -154,6 +165,9 @@ import * as firebase from 'firebase'
       },
 
       save () {
+        var number = Math.random() // 0.9394456857981651
+        number.toString(36); // '0.xtis06h6'
+        var num = number.toString(36).substr(2, 9); // 'xtis06h6'
         if (this.editedIndex > -1) {
         //   Object.assign(this.users[this.editedIndex], this.editedItem)
             if (this.editedItem.email.trim() === '' || this.editedItem.firstName.trim() === '' || this.editedItem.lastName.trim() === '' || this.editedItem.position.trim() === '') {
@@ -161,27 +175,31 @@ import * as firebase from 'firebase'
             }
                 this.dialog = false
                 const payload = {
-                id: this.editedItem.id,
+                key: this.editedItem.key,
                 email: this.editedItem.email,
                 firstName: this.editedItem.firstName,
                 lastName: this.editedItem.lastName,
-                position: this.editedItem.position
+                position: this.editedItem.position,
+                createdAt: new Date(),
+
                 }
                 this.$store.dispatch('updateEmployeeData',payload)
+                console.log(payload.key)
         } else {
-          let num = this.$store.getters.loadedEmployees.length+1
-          console.log(num)
+          
+          // id.length >= 9; // false
+
           this.dialog = false
           const userData = {
+               key: num,
                email: this.editedItem.email,
                firstName: this.editedItem.firstName,
                lastName: this.editedItem.lastName,
                position: this.editedItem.position,
                createdAt: new Date(),
-               id: num,
           }
           this.$store.dispatch('createEmployee', userData)
-          console.log('user created')
+          console.log('user created'+ userData.key)
           this.$router.push('/listofusers')
         }
         this.close()

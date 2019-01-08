@@ -4,7 +4,9 @@ import 'firebase/firestore'
 export default ({
     state: {
         loadedEmployees: [],
-        user: null
+        color: null,
+        userId: 0,
+        user: null,
     },
     mutations: {
         setUser (state, payload) {
@@ -14,12 +16,20 @@ export default ({
             console.log('setovao'+payload)
             state.loadedEmployees = payload
         },
+        setColor (state, payload) {
+            console.log('setovao color ::'+payload)
+            state.color = payload
+        },
+        setUserId (state, payload) {
+            console.log('setovao user ID ::'+payload)
+            state.userId = payload
+        },
         createEmployee(state, payload) {
             state.loadedEmployees.push(payload)
         },
         updateEmployee(state, payload) {
             const employee = state.loadedEmployees.find(employee => {
-                return employee.email === payload.email 
+                return employee.key === payload.key 
             })
             if (payload.email) {
                 employee.email = payload.email
@@ -43,11 +53,14 @@ export default ({
     actions:{
         deleteEmployee ({ commit }, payload){
             commit('setLoading', true)
-            firebase.firestore().collection("user").doc(payload).delete().then(function() {
+            firebase.firestore().collection("user").doc(payload.key).delete().then(function() {
                 commit('deleteEmployee', payload)
                 console.log("Document successfully deleted!");
+                commit('setLoading', false)
+
                 location.reload()
             }).catch(function(error) {
+                commit('setLoading', false)
                 console.error("Error removing document: ", error);
             });
             
@@ -55,9 +68,24 @@ export default ({
 
         updateEmployeeData({ commit }, payload) {
             commit('setLoading', true)
-            firebase.firestore().collection("user").doc(payload.email).update(payload)
+            const updateObj = {}
+            if (payload.email) {
+                updateObj.email = payload.email
+            }
+            if (payload.firstName) {
+                updateObj.firstName = payload.firstName
+            }
+            if (payload.lastName) {
+                updateObj.lastName = payload.lastName
+            }
+            if (payload.position) {
+                updateObj.position = payload.position
+            }
+            // console.log(payload.id+"===>")
+
+            firebase.firestore().collection("user").doc(payload.key).update(updateObj)
                 .then(() => {
-                    console.log(payload.email+"===>")
+                    console.log(payload.key+"===>"+updateObj)
                     commit('updateEmployee', payload)
                     commit('setLoading', false)
                 })
@@ -66,29 +94,22 @@ export default ({
                     commit('setLoading', false)
                 })
         },
-        createEmployee({ commit }, payload) {
+        createEmployee({ commit,getters }, payload) {
             const employee = {
+                key: payload.key,
                 email: payload.email,
                 firstName: payload.firstName,
                 lastName: payload.lastName,
                 position: payload.position,
                 createdAt: Date.now(),
-                id: null
+                id: getters.getUserId+1,
+                color: '#00bdae'
             }
-            let key
-            firebase.firestore().collection("user").add(employee)
-                .then(function(docRef) {
-                key = docRef.id
-                console.log("Document written with ID: ", key);
-                return key
-                })
+            firebase.firestore().collection("user").doc(payload.key).set(employee)
                 .then(() => {
-                    commit('createEmployee',{
-                        ...employee,
-                        id: key
-                    })
-                    console.log('user created2')
-                    commit('setLoading', false)    
+                console.log("Document written with ID: ", payload.key)
+                commit('createEmployee',employee)
+                commit('setLoading', false)  
                 })
                 .catch(error => {
                     commit('setLoading', false)    
@@ -102,16 +123,20 @@ export default ({
                     .then(function (querySnapshot) {
                         const users = []
                         querySnapshot.forEach(function (doc) {
-                            console.log(doc.id, " => ", doc.data())
+                            console.log(doc.data().key, " => ", doc.data())
                             users.push({
                                 email: doc.data().email,
                                 firstName: doc.data().firstName,
                                 lastName: doc.data().lastName,
                                 position: doc.data().position,
+                                key: doc.data().key,
                                 id: doc.data().id,
+                                color: doc.data().color,
                             })
                         })
                         commit('setLoadedEmployees', users)
+                        // commit('setColor', '#00bdae')
+                        commit('setUserId', users.length)                    
                         commit('setLoading', false)
                     }).catch(
                         (error) => {
@@ -165,12 +190,13 @@ export default ({
         user(state){
             return state.user
         },
+        getUserId(state){
+            return state.userId
+        },
         loadedEmployees(state) {
             console.log("nestooooooo"+state.loadedEmployees.length)
-            return state.loadedEmployees.slice(0, 20)
+            return state.loadedEmployees
             console.log("staa")
-
-        }
-
+        },
     }
 })
