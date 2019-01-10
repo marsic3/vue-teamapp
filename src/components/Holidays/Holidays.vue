@@ -2,7 +2,7 @@
     <div>
         <div class="col-md-12 control-section" style="margin:80px; margin-left:330px; padding-right:50px;  width: 1050px">
             <div class="content-wrapper">
-                <ejs-schedule   id='Schedule' height="650px" :selectedDate='selectedDate' :currentView='currentView' :eventSettings='eventSettings'
+                <ejs-schedule id='Schedule' height="650px" :selectedDate='selectedDate' :currentView='currentView' :eventSettings='eventSettings'
                     :group='group'>
                     <e-views>
                         <e-view option="TimelineDay"></e-view>
@@ -43,7 +43,8 @@
     import Vue from "vue"
     import { extend } from '@syncfusion/ej2-base'
     import { resourceData, timelineResourceData } from './datasource'
-    import { SchedulePlugin, Agenda, TimelineViews, TimelineMonth, Resize, DragAndDrop } from "@syncfusion/ej2-vue-schedule"
+    import { SchedulePlugin, Agenda, TimelineViews, TimelineMonth} from "@syncfusion/ej2-vue-schedule"
+    // import { SchedulePlugin, Agenda, TimelineViews, TimelineMonth, Resize, DragAndDrop } from "@syncfusion/ej2-vue-schedule"
     Vue.use(SchedulePlugin)
 
     export default Vue.extend({
@@ -58,28 +59,25 @@
                 group: {
                     resources: ['Employees']
                 },
-                employeeDataSource: [
-                    { text: 'Nancy', id: 1, color: '#df5286' },
-                    { text: 'Steven', id: 2, color: '#7fa900' },
-                    { text: 'Robert', id: 3, color: '#ea7a57' },
-                    { text: 'Smith', id: 4, color: '#5978ee' },
-                    { text: 'Micheal', id: 5 , color: '#df5286' },
-                    { text: 'Root', id: 6, color: '#00bdae' }
-                ],
             }
         },
         provide: {
-            schedule: [Agenda, TimelineViews, TimelineMonth, Resize, DragAndDrop]
+            schedule: [Agenda, TimelineViews, TimelineMonth]
+            // schedule: [Agenda, TimelineViews, TimelineMonth, Resize, DragAndDrop]
+
         },
         methods: {
             generateData: function () {
-                var collections = []
-                var dataCollections = [resourceData, timelineResourceData]
-                for (var i = 0; i < dataCollections.length; i++) {
-                    collections = collections.concat(dataCollections[i])
-                    console.log('concat =>'+collections.length)
-                }
-                return collections
+                
+                // var collections = []
+                // var dataCollections = resourceData
+                // for (var i = 0; i < dataCollections.length; i++) {
+                //     collections = collections.concat(dataCollections[i])
+                //     console.log('concat =>'+typeof dataCollections)
+                // }
+                console.log(this.$store.getters.loadedHolidays)
+                // console.log(resourceData)
+                return this.$store.getters.loadedHolidays
             },
         },
         computed: {
@@ -87,6 +85,10 @@
                 console.log(this.$store.getters.loadedEmployees)
                 return this.$store.getters.loadedEmployees 
             },
+            holidays(){
+                // console.log(this.$store.getters.loadedHolidays+"to e toooo")
+                return this.$store.getters.loadedHolidays 
+            }
       
     },
     })

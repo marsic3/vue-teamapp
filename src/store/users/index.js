@@ -1,5 +1,5 @@
 import * as firebase from 'firebase'
-import 'firebase/firestore'
+import 'firebase/firestore/dist/index.cjs'
 
 export default ({
     state: {
