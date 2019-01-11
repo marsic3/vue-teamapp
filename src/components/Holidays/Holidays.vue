@@ -44,6 +44,7 @@
     import { extend } from '@syncfusion/ej2-base'
     import { resourceData, timelineResourceData } from './datasource'
     import { SchedulePlugin, Agenda, TimelineViews, TimelineMonth} from "@syncfusion/ej2-vue-schedule"
+    import { functions } from "firebase";
     // import { SchedulePlugin, Agenda, TimelineViews, TimelineMonth, Resize, DragAndDrop } from "@syncfusion/ej2-vue-schedule"
     Vue.use(SchedulePlugin)
 
@@ -59,6 +60,8 @@
                 group: {
                     resources: ['Employees']
                 },
+                // readonly: this.editHolidays(),
+
             }
         },
         provide: {
@@ -68,17 +71,23 @@
         },
         methods: {
             generateData: function () {
-                
-                // var collections = []
-                // var dataCollections = resourceData
-                // for (var i = 0; i < dataCollections.length; i++) {
-                //     collections = collections.concat(dataCollections[i])
-                //     console.log('concat =>'+typeof dataCollections)
-                // }
-                console.log(this.$store.getters.loadedHolidays)
-                // console.log(resourceData)
                 return this.$store.getters.loadedHolidays
             },
+            // editHolidays: function () {
+            // let readonly = []
+            // var dataCollections = this.$store.getters.loadedHolidays
+            //     for (var i = 0; i < dataCollections.length; i++) {
+            //        if(Date.now() - dataCollections[i].EndTime.getTime() <= 0 ) {
+            //            readonly = false
+            //        }
+            //        else {
+            //            readonly = true
+            //        }
+            //     console.log(Date.now() - dataCollections[i].EndTime.getTime()+" "+readonly)
+
+            //     }
+            //     return readonly
+            // }
         },
         computed: {
             users(){
