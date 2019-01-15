@@ -7,6 +7,7 @@ export default ({
         color: null,
         userId: 0,
         user: null,
+        userData: null
     },
     mutations: {
         setUser (state, payload) {
@@ -15,6 +16,10 @@ export default ({
         setLoadedEmployees (state, payload) {
             console.log('setovao'+payload)
             state.loadedEmployees = payload
+        },
+        setUserData(state, payload) {
+            console.log('setovao'+payload)
+            state.userData = payload
         },
         setColor (state, payload) {
             console.log('setovao color ::'+payload)
@@ -81,12 +86,17 @@ export default ({
             if (payload.position) {
                 updateObj.position = payload.position
             }
+            if (payload.color) {
+                updateObj.color = payload.color
+            }
             // console.log(payload.id+"===>")
 
             firebase.firestore().collection("user").doc(payload.key).update(updateObj)
                 .then(() => {
                     console.log(payload.key+"===>"+updateObj)
                     commit('updateEmployee', payload)
+                    console.log('document uspesno updatovan')
+
                     commit('setLoading', false)
                 })
                 .catch((error) => {
@@ -103,7 +113,7 @@ export default ({
                 position: payload.position,
                 createdAt: Date.now(),
                 id: getters.getUserId+1,
-                color: '#00bdae'
+                color: payload.color
             }
             firebase.firestore().collection("user").doc(payload.key).set(employee)
                 .then(() => {
@@ -115,6 +125,25 @@ export default ({
                     commit('setLoading', false)    
                     console.log(error)
                 })
+        },
+        loadUserInfo({ commit}, payload){
+            commit('setLoading', true)
+            console.log('email', '==', payload.email)
+            firebase.firestore().collection('user').where('email', '==', payload.email).get()
+                .then(function (querySnapshot) {
+                    querySnapshot.forEach(function (doc) {
+                      console.log(doc.id, " => ", doc.data());
+                      commit('setUserData', doc.data())
+
+                        })
+                    commit('setLoading', false)
+                }).catch(
+                    (error) => {
+                        console.log(error)
+                        commit('setLoading', false)
+                    }
+                )
+
         },
         loadedEmployee({ commit }) {
             console.log(" ===========> ")
@@ -179,11 +208,26 @@ export default ({
             })
         },
         autoSignIn({commit}, payload){
-            commit('setUser', {id: payload.uid})
+            commit('setUser', {id: payload.uid,
+                               password: payload.password,
+                               email: payload.email,
+                                 })
         },
         logout({commit}) {
             firebase.auth().signOut()
             commit('setUser', null)
+        },
+        updatePassword({commit}, payload){
+            var user = firebase.auth().currentUser
+            console.log(user)
+            user.updatePassword(payload).then(function() {
+                // Update successful.
+            firebase.auth().signOut()
+            commit('setUser', null)
+            window.location.href = '/signin'
+            }).catch(function(error) {
+                // An error happened.
+            });
         }
     },
     getters: {
@@ -198,5 +242,8 @@ export default ({
             return state.loadedEmployees
             console.log("staa")
         },
+        loadUser(state){
+            return state.userData
+        }
     }
 })

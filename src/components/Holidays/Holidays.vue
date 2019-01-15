@@ -54,7 +54,7 @@
                 eventSettings: {
                     dataSource: this.generateData()
                 },
-                selectedDate: new Date(2018, 3, 4),
+                selectedDate: new Date(),
                 currentView: 'TimelineWeek',
                 allowMultiple : true,
                 group: {

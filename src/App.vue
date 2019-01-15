@@ -133,7 +133,7 @@
 export default {
   data: () => ({
       dialog: false,
-      drawer: null,
+      drawer: true,
     }),
   computed: {
   items() {
