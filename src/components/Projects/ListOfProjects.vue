@@ -111,6 +111,7 @@
     </v-flex>
   </v-layout>
 </template>
+
 <script>
 import * as firebase from 'firebase'
 

@@ -8,6 +8,7 @@ import "vue-material-design-icons/styles.css"
 import * as firebase from 'firebase'
 import 'firebase/firestore'
 import Alert from './components/Shared/Alert'
+import AlertSuccess from './components/Shared/AlertSuccess'
 import EditProjectDialog from './components/Projects/Edit/EditProjectDialog'
 import firebaseConfig from '../config/firebaseConfig'
 import swatches from 'vue-swatches';
@@ -18,6 +19,7 @@ import DataTable from '../src/plugin/components/DataTable';
 import TimeLine from '../src/plugin/components/TimeLine';
 import UserTreeView from '../src/plugin/components/UserTreeView';
 import Stepper from '../src/plugin/components/Stepper';
+
 
 import PrettyInput from 'pretty-checkbox-vue/input';
 import PrettyCheck from 'pretty-checkbox-vue/check';
@@ -36,6 +38,7 @@ Vue.use(Vuetify)
 Vue.config.productionTip = false
 Vue.component('swatches', swatches);
 Vue.component('app-alert', Alert)
+Vue.component('app-alert-success', AlertSuccess)
 Vue.component('app-edit-project-dialog', EditProjectDialog)
 Vue.component('widget', Widget);
 Vue.component('social-widget', SocialWidget);

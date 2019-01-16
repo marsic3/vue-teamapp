@@ -1,72 +1,40 @@
 <template>
-  <v-stepper v-model="step">
-    <v-stepper-header>
-      <v-stepper-step :complete="step > 1" step="1">Name of step 1</v-stepper-step>
+  <v-layout>
+    <v-flex xs12 sm12 >
+      <v-layout row v-if="error">
+                    <v-flex xs12 sm12 >
+                        <app-alert @dismissed="onDismissed" :text="error"></app-alert>
+                    </v-flex>
+      </v-layout>
+      <v-layout row v-if="success">
+                    <v-flex xs12 sm12 >
+                        <app-alert-success @dismissed="onDismissed" :text="success"></app-alert-success>
+                    </v-flex>
+      </v-layout>
+      <v-card>
 
-      <v-divider></v-divider>
+        <v-card-title primary-title>
+          <div>
+            <h3 class="headline mb-0">Project progress</h3>
+            <div>Nostrud exercitation commodo consequat.<br>Southern Highlands of New South Wales, ...</div>
+          </div>
+        </v-card-title>
 
-      <v-stepper-step :complete="step > 2" step="2">Name of step 2</v-stepper-step>
-
-      <v-divider></v-divider>
-
-      <v-stepper-step step="3">Name of step 3</v-stepper-step>
-    </v-stepper-header>
-
-    <v-stepper-items>
-      <v-stepper-content step="1">
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <h2> Project progress </h2>
-          <p>Nostrud exercitation commodo consequat.</p>
-          <v-text-field
-            v-model="name"
-            :rules="nameRules"
-            :counter="30"
-            label="Full Name"
-            required
-          ></v-text-field>
-           <!-- <v-text-field
-            v-model="name"
-            :rules="nameRules"
-            :counter="10"
-            label="Last Name"
-            required
-          ></v-text-field> -->
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="E-mail"
-            required />
-          <!-- <v-checkbox
-            v-model="checkbox"
-            :rules="[v => !!v || 'You must agree to continue!']"
-            label="Do you agree?"
-            required/> -->
-
-          <v-btn :disabled="!valid"
-            @click="submit">
-            cointunue
-          </v-btn>
-          <v-btn @click.native="clear">clear</v-btn>
-        </v-form>
-      </v-stepper-content>
-
-      <v-stepper-content step="2">
-        <v-form>
-          <h2> Project progress </h2>
-          <p>Nostrud exercitation commodo consequat.</p>
+        <v-card-actions>
+          <v-form>
           <v-container>
             <v-layout flex wrap row>
               <v-flex d-flex lg6>
                  <v-select
                   v-model="select"
-                  :items="items"
-                  :rules="[v => !!v || 'Item is required']"
+                  :items="loadProjects"
                   label="Choose a Project"
-                  required />
+                  />
                   </v-flex>
               <v-flex d-flex lg6>
                 <v-text-field
                   v-model="workingHours"
+                  v-on:keypress="isNumber($event)"
                   label="How many hours did you work today?" />
               </v-flex>
               <v-divider></v-divider>
@@ -95,7 +63,6 @@
                    </v-avatar>
                 </v-btn>
              </v-btn-toggle>
-
               </v-flex>
               <!-- <v-spacer></v-spacer> -->
               <!-- <v-flex d-flex lg6>
@@ -108,33 +75,20 @@
                   v-model="email"
                   label="Phone Number" />
               </v-flex> -->
-              <v-flex d-flex lg2></v-flex>
+              <v-flex d-flex lg4></v-flex>
               <v-flex d-flex lg4>
-                <v-btn @click="step=3">
-                  cointunue
+                <v-btn flat color="primary" @click="submit">
+                  submit
                 </v-btn>
-              </v-flex>
-              <v-flex d-flex lg4>
-                <v-btn @click="step=1">back</v-btn>
               </v-flex>
             </v-layout>
           </v-container>
         </v-form>
-      </v-stepper-content>
 
-      <v-stepper-content step="3">
-        <h2> Aggreement </h2>
-        <p style="padding-top: 25px;">
-            Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.
-            Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.
-            Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.Nostrud exercitation commodo consequat.
-        </p>
-        <v-checkbox label="I read agreement and i have not any objection."></v-checkbox>
-
-        <v-btn @click="step=1">submit</v-btn>
-      </v-stepper-content>
-    </v-stepper-items>
-  </v-stepper>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -143,44 +97,68 @@
       return {
         text: 'center',
         icon: 'justify',
-        toggle_none: null,
         toggle_one: 0,
-        toggle_exclusive: 2,
-        toggle_multiple: [0, 1, 2],
-        step: 0,
-        valid: true,
         name: '',
-        workingHours: 0,
-        nameRules: [
-          v => !!v || 'Name is required',
-          v => (v && v.length <= 30) || 'Name must be less than 30 characters'
-        ],
+        workingHours: null,
         email: '',
-        emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+/.test(v) || 'E-mail must be valid'
-        ],
         select: null,
-        items: [
-          'Insulclock',
-          'Insulclock 2',
-          'Insulclock 3',
-          'Insulclock 4'
-        ],
+        items: [],
         checkbox: false,
-        date: new Date().toISOString().substr(0, 10)
+        date: new Date().toISOString().substr(0, 10),
+        error: null,
+        success: null
       }
     },
 
     methods: {
       submit () {
-        if (this.$refs.form.validate()) {
+        if(this.select === null){
+        this.error = 'Please choose the project'
+        return
         }
-        this.step = 2;
+        if(this.workingHours === null){
+        this.error = 'Please add the working hours'
+        return
+        }
+        if(this.toggle_one === 0){
+        this.error = 'Please select the happiness'
+        return
+        }
+
+        const payload = {
+          project: this.select,
+          happiness: this.toggle_one,
+          workingHours: this.workingHours
+        }
+        this.$store.dispatch('createTimeSheet', payload)
+        this.error = null
+        this.success = 'Your feedback has been successefuly added'
+        this.toggle_one = 0
+        this.select = null
+        this.workingHours = null
+        
       },
-      clear () {
-        this.$refs.form.reset()
+      isNumber: function(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault();;
+      } else {
+        return true;
       }
+    },
+    onDismissed(){
+            this.$store.dispatch('clearError')
+        },
+    },
+    computed: {
+      loadProjects () {
+        const lista = this.$store.getters.loadedProjects
+        for (let i = 0; i < lista.length; i++) {
+          this.items.push(lista[i].projectName)
+        }
+        return this.items
+      },
     }
   }
 </script>

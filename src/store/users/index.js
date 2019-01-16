@@ -215,6 +215,7 @@ export default ({
         },
         logout({commit}) {
             firebase.auth().signOut()
+            window.location.href = '/signin'
             commit('setUser', null)
         },
         updatePassword({commit}, payload){

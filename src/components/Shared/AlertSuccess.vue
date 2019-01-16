@@ -2,7 +2,7 @@
      <v-alert
       @input="onClose"
       dismissible
-      type="error"
+      type="success"
       :value="true"
     >
       {{text}}

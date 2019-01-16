@@ -10,12 +10,11 @@
           <img :src="randomAvatar()" alt="avatar">
         </v-avatar>
       </td>
-      <td class="text-xs-left">{{ props.item.name }}</td>
-      <td class="text-xs-left">{{ props.item.username }}</td>
-      <td class="text-xs-left">{{ props.item.email }}</td>
-      <td class="text-xs-left">{{ props.item.phone }}</td>
-      <td class="text-xs-left">{{ props.item.company.name }}</td>
-      <td class="text-xs-left">{{ props.item.website }}</td>
+        <td class="text-xs-left">{{ props.item.email }}</td>
+        <td class="text-xs-left">{{ props.item.firstName }}</td>
+        <td class="text-xs-left">{{ props.item.lastName }}</td>
+        <td class="text-xs-left">{{ props.item.position }}</td>
+      
       <!-- <td class="text-xs-left">{{ props.item.address.city }}</td> -->
     </template>
   </v-data-table>
@@ -31,6 +30,7 @@ const avatars = [
   'https://avataaars.io/?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly',
   'https://avataaars.io/?'
 ];
+import * as firebase from 'firebase'
 
 export default {
   data() {
@@ -43,60 +43,55 @@ export default {
           sortable: false
         },
         {
-          text: 'Name',
-          value: 'Name',
+          text: 'E-mail',
+          value: 'email',
           align: 'left',
           sortable: true
         },
         {
-          text: 'User Name',
-          value: 'Username',
+          text: 'First Name',
+          value: 'FirstName',
           align: 'left',
           sortable: true
         },
         {
-          text: 'Email',
-          value: 'Email',
+          text: 'Last Name',
+          value: 'LastName',
           align: 'left',
           sortable: true
         },
         {
-          text: 'Phone',
-          value: 'Phone',
+          text: 'Position',
+          value: 'Position',
           align: 'left',
           sortable: true
         },
-        {
-          text: 'Company',
-          value: 'Company',
-          align: 'left',
-          sortable: true
-        },
-        {
-          text: 'Website',
-          value: 'Website',
-          align: 'left',
-          sortable: true
-        }
+    
       ]
     }
   },
 
   methods: {
     randomAvatar () {
-
-      return avatars[Math.floor(Math.random() * avatars.length)];
+      return avatars[Math.floor(Math.random() * avatars.length)]
     }
   },
 
   created() {
     const vm = this;
 
-    vm.axios.get('https://jsonplaceholder.typicode.com/users').then(response => {
-      var result = response && response.data;
+    // firebase.firestore().collection("user").get().then(response => {
+      var result = this.empolyees
+      console.log(result+'sdada')
 
       vm.users = result;
-    });
+    // })
+    
+  },
+  computed: {
+    empolyees () {
+      return this.$store.getters.loadedEmployees
+    }
   }
 }
 </script>

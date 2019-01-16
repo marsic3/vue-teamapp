@@ -14,6 +14,6 @@ export const store = new Vuex.Store({
         project: project,
         users: users,
         shared: shared,
-        holidays: holidays
+        holidays: holidays,
     }
 })

@@ -14,12 +14,7 @@
       <v-flex d-flex lg3 sm6 xs12>
         <widget icon="watch_later" title="13.00%" subTitle= '17.25% on average time' supTitle="Bounce Rate" color="#1D2939"/>
       </v-flex>
-      <!-- Widgets Ends -->
       <!-- DataTable&TimeLine Starts -->
-
-      <!-- <v-flex d-flex lg12 sm12 xs12>
-        <data-table/>
-      </v-flex> -->
 
       <!-- DataTable&TimeLine Ends -->
       
@@ -29,6 +24,9 @@
       <v-flex d-flex lg12 sm12 xs12>
         <stepper/>
       </v-flex>
+      <v-flex d-flex lg12 sm12 xs12>
+         <data-table> </data-table>
+      </v-flex> 
       
     </v-layout>
   </v-container>
