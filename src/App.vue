@@ -116,7 +116,7 @@
                Logout
               </v-list-tile-title>
       </v-btn>
-       <v-btn icon large>
+       <v-btn icon large v-if="userIsAuth">
         <v-avatar size="32px" tile>
           <img
             src='https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban'

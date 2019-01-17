@@ -3,20 +3,20 @@
   <v-layout justify-center align-center>
   <v-flex  xs6 sm12 lg12 >
 
-  <v-container fluid grid-list-xl>
-    <v-layout row wrap>
+  <v-container fluid grid-list-xl align-content-center>
+    <v-layout row wrap >
       <!-- Widgets-->
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="domain" title="1,287,687" subTitle= '13% higher yesterday' supTitle="Today's Visits" color="#00b297"/>
+        <widget icon="face" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#00b297"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="money_off" title="$141,291" subTitle= '$117,212 before tax' supTitle="Today's Sales" color="#dc3545"/>
+        <widget icon="work" :title="projects" subTitle= 'Projects' supTitle="Today's Projects" color="#dc3545"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="computer" title="33.45%" subTitle= '13% average duration' supTitle="% Unique Visits" color="#0866C6"/>
+        <widget icon="insert_emoticon" :title="loadedHappiness" subTitle= 'Average feeling' supTitle="Current average feeling" color="#0866C6"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="watch_later" title="13.00%" subTitle= '17.25% on average time' supTitle="Bounce Rate" color="#1D2939"/>
+        <widget icon="watch_later" :title="loadedworkingHours" subTitle= 'Total working hours' supTitle="Bounce Rate" color="#1D2939"/>
       </v-flex>
       <!-- DataTable&TimeLine Starts -->
 
@@ -43,8 +43,68 @@
 export default {
   data() {
     return {
-      lorem: `Lorem ipsum dolor sit amet, mel at clita quando.`
+      lorem: `Lorem ipsum dolor sit amet, mel at clita quando.`,
+      sum : 0,
+      superhappy:[],
+      happy:[],
+      okay:[],
+      bad:[],
+
+
     }
+  },
+ 
+  computed: {
+      users(){
+        return this.$store.getters.loadedEmployees.length
+      },
+      projects(){
+        return this.$store.getters.loadedProjects.length
+      },
+      loadedworkingHours(){
+      let lista = this.$store.getters.loadedTimeSheet
+      for (let i = 0; i < lista.length; i++) {
+          this.sum += Number(lista[i].workingHours)
+          // console.log(lista[i].workingHours)
+
+        }
+        return this.sum
+      },
+      loadedHappiness(){
+      let lista = this.$store.getters.loadedTimeSheet
+      for (let i = 0; i < lista.length; i++) {
+
+          if(lista[i].happiness === 'superhappy'){
+          this.superhappy.push(lista[i].happiness)
+          }
+          if(lista[i].happiness === 'happy'){
+          this.happy.push(lista[i].happiness)
+          }
+          if(lista[i].happiness === 'okay'){
+          this.okay.push(lista[i].happiness)
+          }
+          if(lista[i].happiness === 'bad'){
+          this.bad.push(lista[i].happiness)
+          }
+
+        }
+          if(this.superhappy.length>=this.happy.length){
+            return this.superhappy[0]
+          }
+          if(this.happy.length>=this.okay.length){
+            return this.happy[0]
+          }
+          if(this.okay.length>=this.bad.length){
+            return this.okay[0]
+          }
+          // console.log(this.superhappy.length)
+          // console.log(this.happy.length)
+          // console.log(this.okay.length)
+          // console.log(this.bad.length)
+
+
+
+      }
   }
 }
 </script>

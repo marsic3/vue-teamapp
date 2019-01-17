@@ -52,7 +52,7 @@
                     <img src="https://i.imgur.com/TRtFNJe.png">
                    </v-avatar>
                 </v-btn>
-                <v-btn fab outline color="white" value="ok">
+                <v-btn fab outline color="white" value="okay">
                    <v-avatar>
                     <img src="https://i.imgur.com/T8lY3hl.png">
                    </v-avatar>

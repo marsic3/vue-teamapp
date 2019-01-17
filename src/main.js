@@ -73,6 +73,8 @@ new Vue({
   this.$store.dispatch('loadedProject')
   this.$store.dispatch('loadedEmployee')
   this.$store.dispatch('loadedHolidays')
+  this.$store.dispatch('loadedTimeSheet')
+
   
 
   }

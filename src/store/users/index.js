@@ -113,7 +113,7 @@ export default ({
                 position: payload.position,
                 createdAt: Date.now(),
                 id: getters.getUserId+1,
-                color: payload.color
+                color: '#E53935'
             }
             firebase.firestore().collection("user").doc(payload.key).set(employee)
                 .then(() => {

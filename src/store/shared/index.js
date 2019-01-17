@@ -19,6 +19,9 @@ export default {
       createTimeSheet(state, payload) {
         state.loadedTimeSheet.push(payload)
     },
+    setLoadedTimesheet(state, payload) {
+      state.loadedTimeSheet = payload
+  },
     },
     actions: {
       clearError ({commit}) {
@@ -43,7 +46,32 @@ export default {
             console.log(error)
         })
 
-      } 
+      },
+      loadedTimeSheet({ commit }) {
+        commit('setLoading', true)
+        firebase.firestore().collection("timesheet").get()
+            .then(function (querySnapshot) {
+                const timesheets = []
+                querySnapshot.forEach(function (doc) {
+                    console.log(doc.id, " => ", doc.data())
+                    timesheets.push({
+                        createdAt: doc.data().createdAt,
+                        happiness: doc.data().happiness,
+                        project: doc.data().project,
+                        userId: doc.data().userId,
+                        workingHours: doc.data().workingHours,
+                    })
+                })
+                commit('setLoadedTimesheet', timesheets)
+                commit('setLoading', false)
+
+            }).catch(
+                (error) => {
+                    console.log(error)
+                    commit('setLoading', false)
+                }
+            )
+    },
     },
     getters: {
       loading (state) {
@@ -51,6 +79,9 @@ export default {
       },
       error (state) {
         return state.error
-      }
+      },
+      loadedTimeSheet(state) {
+        return state.loadedTimeSheet
+    },
     }
   }
