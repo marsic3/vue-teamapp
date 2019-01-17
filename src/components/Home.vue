@@ -1,5 +1,9 @@
 <template>
-  <v-container fluid grid-list-xl style="margin:80px; margin-left:330px; padding-right:50px;  width: 1050px">
+  <v-container fluid fill-height>
+  <v-layout justify-center align-center>
+  <v-flex  xs6 sm12 lg12 >
+
+  <v-container fluid grid-list-xl>
     <v-layout row wrap>
       <!-- Widgets-->
       <v-flex d-flex lg3 sm6 xs12>
@@ -29,6 +33,9 @@
       </v-flex> 
       
     </v-layout>
+  </v-container>
+  </v-flex>
+  </v-layout>
   </v-container>
 </template>
 

@@ -1,15 +1,16 @@
 <template>
-  <v-layout justify-center>
-    <v-flex  xs12 sm6 offset-sm3 style="margin:80px">
+<v-container fluid fill-height>
+  <v-layout justify-center align-center>
+    <v-flex  xs12 sm6 lg12>
       <v-card>
         <v-container
           fluid
-          grid-list-md
+          grid-list-xl
         >
           <v-layout row wrap>
             <v-flex 
               v-for="item in items"
-              v-bind="{ [`xs12`]: true }"
+              v-bind="{ [`xs4`]: true }"
               :key="item.projectName"
               @click="onDetail(item.id)"
             >
@@ -21,7 +22,7 @@
                   <v-card-title>
                <div>
                 <span class="grey--text">{{item.projectName}}</span><br>
-                <span>{{item.description}}</span><br>
+                <!-- <span>{{item.description}}</span><br> -->
                </div>
               </v-card-title>
                   <v-card-actions>
@@ -110,6 +111,7 @@
     </v-dialog>
     </v-flex>
   </v-layout>
+</v-container>
 </template>
 
 <script>

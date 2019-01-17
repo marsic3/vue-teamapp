@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <div class="col-md-12 control-section" style="margin:80px; margin-left:330px; padding-right:50px;  width: 1050px">
+    <div >
+        <div class="col-md-12 control-section">
             <div class="content-wrapper">
                 <ejs-schedule id='Schedule' height="650px" :selectedDate='selectedDate' :currentView='currentView' :eventSettings='eventSettings'
                     :group='group'>
                     <e-views>
                         <e-view option="TimelineDay"></e-view>
-                        <e-view option="TimelineWeek"></e-view>
-                        <e-view option="TimelineWorkWeek"></e-view>
                         <e-view option="TimelineMonth"></e-view>
                         <e-view option="Agenda"></e-view>
                     </e-views>
@@ -55,7 +53,7 @@
                     dataSource: this.generateData()
                 },
                 selectedDate: new Date(),
-                currentView: 'TimelineWeek',
+                currentView: 'TimelineMonth',
                 allowMultiple : true,
                 group: {
                     resources: ['Employees']

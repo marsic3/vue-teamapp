@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout  justify-center align-center>
     <v-flex xs12 sm12 >
       <v-layout row v-if="error">
                     <v-flex xs12 sm12 >

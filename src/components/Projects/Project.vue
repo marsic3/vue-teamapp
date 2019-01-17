@@ -1,26 +1,27 @@
 <template>
-  <v-container style="margin:80px">
-    <v-layout row wrap v-if="loading">
-      <v-flex xs12 class="text-xs-center">
+  <v-container grid-list-md text-xs-center>
+    <v-layout align-space-around justify-center column fill-height v-if="loading">
+      <v-flex xs12 sm6 lg12>
         <v-progress-circular indeterminate class="primary--text" :width="7" :size="70">
         </v-progress-circular>
       </v-flex>
     </v-layout>
     <v-layout row wrap v-else>
-      <v-flex xs12 sm8 offset-sm3 style="margin-top:10px">
+      <v-flex xs12 sm6 lg12>
         <v-card>
           <v-img class="white--text" aspect-ratio max-height="250px" :src="project.imageUrl">
           </v-img>
-           <v-tabs color="#90A4AE" dark slider-color="primary">
+           <v-tabs color="primary" dark slider-color="primary">
             <v-tab ripple>
-              Item 1
+              Statistics
             </v-tab>
             <v-tab ripple>
-              Item 2
+              Details
             </v-tab>
             <v-tab-item>
               <v-card flat>
                 <v-card-text>{{ project.projectName }}</v-card-text>
+                <location-statistic> </location-statistic>
               </v-card>
             </v-tab-item>
             <v-tab-item>

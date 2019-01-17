@@ -100,7 +100,6 @@
         v-for="item in menuItems"
         :key="item.icon"
         :to="item.link"
-        
         >
         <v-icon>{{item.icon}} </v-icon>
         <v-list-tile-title style="padding-left:5px">
@@ -117,15 +116,26 @@
                Logout
               </v-list-tile-title>
       </v-btn>
+       <v-btn icon large>
+        <v-avatar size="32px" tile>
+          <img
+            src='https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban'
+            alt="Vuetify"
+          >
+        </v-avatar>
+      </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    
-    
+    <v-content>
+      <!-- <v-container fluid fill-height>
+        <v-layout justify-center align-center> -->
     <main>
       <router-view>
-
       </router-view>
     </main>
+    <!-- </v-layout> -->
+      <!-- </v-container> -->
+    </v-content>
   </v-app>
 </template>
 

@@ -1,6 +1,5 @@
 <template>
-  <div style="margin:80px; max-width: 1250px">
-    <v-flex xs12  offset-sm3 class="text-xs-center">
+<div>
     <v-toolbar flat color="white">
       <v-toolbar-title>Employees</v-toolbar-title>
       <v-divider
@@ -49,6 +48,11 @@
       class="elevation-1"
     >
       <template slot="items" slot-scope="props">
+        <td class="text-xs-left">
+        <v-avatar size="42">
+          <img :src="randomAvatar()" alt="avatar">
+        </v-avatar>
+      </td>
         <!-- <td>{{ props.item.key }}</td> -->
         <td class="text-xs-left">{{ props.item.email }}</td>
         <td class="text-xs-left">{{ props.item.firstName }}</td>
@@ -74,23 +78,31 @@
         <v-btn color="primary">Reset</v-btn>
       </template>
     </v-data-table>
-    </v-flex>
-  </div>
+</div>
+
 </template>
 
 <script>
+const avatars = [
+  'https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban',
+  'https://avataaars.io/?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun',
+  'https://avataaars.io/?accessoriesType=Prescription02&avatarStyle=Circle&clotheColor=Black&clotheType=ShirtVNeck&eyeType=Surprised&eyebrowType=Angry&facialHairColor=Blonde&facialHairType=Blank&hairColor=Blonde&hatColor=PastelOrange&mouthType=Smile&skinColor=Black&topType=LongHairNotTooLong',
+  'https://avataaars.io/?accessoriesType=Round&avatarStyle=Circle&clotheColor=PastelOrange&clotheType=Overall&eyeType=Close&eyebrowType=AngryNatural&facialHairColor=Blonde&facialHairType=Blank&graphicType=Pizza&hairColor=Black&hatColor=PastelBlue&mouthType=Serious&skinColor=Light&topType=LongHairBigHair',
+  'https://avataaars.io/?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly',
+  'https://avataaars.io/?'
+]
 import * as firebase from 'firebase'
   export default {
     data () {
     return {
       dialog: false,
       headers: [
-        // {
-        //   text: 'ID',
-        //   align: 'left',
-        //   sortable: true,
-        //   value: 'key'
-        // },
+        {
+          text: '',
+          align: 'left',
+          sortable: false,
+          value: 'key'
+        },
         { text: 'Email', value: 'email' },
         { text: 'First Name', value: 'firstName' },
         { text: 'Last Name', value: 'lastName' },
@@ -141,6 +153,9 @@ import * as firebase from 'firebase'
       }
     },
     methods: {
+      randomAvatar () {
+      return avatars[Math.floor(Math.random() * avatars.length)]
+    },
       editItem (item) {
         this.editedIndex = this.users.indexOf(item)
         console.log(item)

@@ -19,8 +19,9 @@ import DataTable from '../src/plugin/components/DataTable';
 import TimeLine from '../src/plugin/components/TimeLine';
 import UserTreeView from '../src/plugin/components/UserTreeView';
 import Stepper from '../src/plugin/components/Stepper';
-
-
+import LocationStatistic from '../src/plugin/components/LocationStatistic';
+import Chart from 'chart.js';
+import VueChartkick from 'vue-chartkick';
 import PrettyInput from 'pretty-checkbox-vue/input';
 import PrettyCheck from 'pretty-checkbox-vue/check';
 import PrettyRadio from 'pretty-checkbox-vue/radio';
@@ -32,6 +33,8 @@ db.settings(settings);
 
 
 Vue.use(Vuetify)
+Vue.use(VueChartkick, { adapter: Chart });
+
 // Vue.use(VueMaterial)
 
 // Vue.component("menu-icon", MenuIcon)
@@ -50,7 +53,7 @@ Vue.component('p-input', PrettyInput);
 Vue.component('p-check', PrettyCheck);
 Vue.component('p-radio', PrettyRadio);
 
-// Vue.component('location-statistic', LocationStatistic);
+Vue.component('location-statistic', LocationStatistic);
 // Vue.component('site-view-statistic', SiteViewStatistic);
 // Vue.component('total-earnings-statistic', TotalEarningsStatistic);
 /* eslint-disable no-new */
