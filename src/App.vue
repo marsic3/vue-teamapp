@@ -1,11 +1,25 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" >
     <v-navigation-drawer
       :clipped="$vuetify.breakpoint.lgAndUp"
       v-model="drawer"
       fixed
       app
+      v-if="userIsAuth"
     >
+  <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img :src="user.avatar">
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{user.firstName+ ' '+ user.lastName}}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
 
       <v-list dense>
         <template v-for="item in items">
@@ -80,19 +94,12 @@
       fixed
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <router-link to='/' tag="span" style="cursor:pointer"> 
+        <!-- <router-link to='/' tag="span" style="cursor:pointer">  -->
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <span class="hidden-sm-and-down">Insulclock Team</span>
-        </router-link>
+        <!-- </router-link> -->
       </v-toolbar-title >
-      <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="search"
-        label="Search"
-        class="hidden-sm-and-down"
-      ></v-text-field>
+     
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
       <v-btn 
@@ -116,14 +123,14 @@
                Logout
               </v-list-tile-title>
       </v-btn>
-       <v-btn icon large v-if="userIsAuth">
+       <!-- <v-btn icon large v-if="userIsAuth">
         <v-avatar size="32px" tile>
           <img
             src='https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban'
             alt="Vuetify"
           >
         </v-avatar>
-      </v-btn>
+      </v-btn> -->
       </v-toolbar-items>
     </v-toolbar>
     <v-content>
@@ -153,7 +160,7 @@ export default {
     if(this.userIsAuth){
       items = [
         { icon: 'home', text: 'Home', link:'/home'},
-        { icon: 'contacts', text: 'Employees', link:'/listofusers' },
+        { icon: 'people', text: 'Employees', link:'/listofusers' },
         { icon: 'folder_open', text: 'Projects', link:'/projects' },
         { icon: 'event', text: 'Holidays', link:'/holidays' },
       ]
@@ -176,7 +183,11 @@ export default {
     },
     userIsAuth(){
       return this.$store.getters.user !== null && this.$store.getters.user !== 'undefined'
-    }
+    },
+    user(){
+      return this.$store.getters.loadUser
+    },
+
 },
   methods: {
     onLogout(){

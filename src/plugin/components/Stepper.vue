@@ -148,7 +148,7 @@
       }
     },
     onDismissed(){
-            this.$store.dispatch('clearError')
+          this.$store.dispatch('clearError')
         },
     },
     computed: {

@@ -9,7 +9,7 @@
                 </v-layout>
                 <v-card>
                     <v-card-text>
-                        <v-container>
+                        <v-container grid-list-xl text-xs-center>
                             <form @submit.prevent="onSignUp">
                                 <v-layout row>
                                     <v-flex xs12>
@@ -31,7 +31,10 @@
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-btn type="submit" :disabled="loading" :loading="loading">Sign up
+                                        <v-btn 
+                                        color="primary"
+                                        style="width: 100%"
+                                        type="submit" :disabled="loading" :loading="loading">Sign up
                                             <span slot="loader" class="custom-loader">
                                                 <v-icon light>cached</v-icon>
                                             </span>

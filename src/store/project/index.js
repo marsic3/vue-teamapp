@@ -27,9 +27,27 @@ export default ({
         createProject(state, payload) {
             state.loadedProjects.push(payload)
         },
+        deleteProject(state, payload) {
+            state.loadedProjects.find(p => {
+                return p.id === payload.id
+            })
+        },
 
     },
     actions: {
+        deleteProject ({ commit }, payload){
+            commit('setLoading', true)
+            firebase.firestore().collection("projects").doc('p'+payload).delete().then(function() {
+                commit('deleteProject', payload)
+                console.log("Document successfully deleted!");
+                commit('setLoading', false)
+                location.reload()
+            }).catch(function(error) {
+                commit('setLoading', false)
+                console.error("Error removing document: ", error);
+            });
+            
+        },
         loadedProject({ commit }) {
             commit('setLoading', true)
             firebase.firestore().collection("projects").get()

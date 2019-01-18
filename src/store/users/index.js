@@ -89,6 +89,9 @@ export default ({
             if (payload.color) {
                 updateObj.color = payload.color
             }
+            if (payload.avatar) {
+                updateObj.avatar = payload.avatar
+            }
             // console.log(payload.id+"===>")
 
             firebase.firestore().collection("user").doc(payload.key).update(updateObj)
@@ -113,7 +116,8 @@ export default ({
                 position: payload.position,
                 createdAt: Date.now(),
                 id: getters.getUserId+1,
-                color: '#E53935'
+                color: '#E53935',
+                avatar: 'https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban'
             }
             firebase.firestore().collection("user").doc(payload.key).set(employee)
                 .then(() => {

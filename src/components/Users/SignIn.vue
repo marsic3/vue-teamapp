@@ -9,7 +9,7 @@
                 </v-layout>
                 <v-card>
                     <v-card-text>
-                        <v-container>
+                        <v-container grid-list-xl text-xs-center>
                             <form @submit.prevent="onSignIn">
                                 <v-layout row>
                                     <v-flex xs12>
@@ -38,6 +38,8 @@
                                 <v-layout row>
                                     <v-flex xs12>
                                        <v-btn
+                                       color="primary"
+                                       style="width: 100%"
                                        type="submit"
                                        :disabled="loading"
                                        :loading="loading"

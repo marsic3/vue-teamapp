@@ -37,6 +37,9 @@
             <v-spacer></v-spacer>
             <template v-if="userIsCreator">
               <app-edit-project-dialog :project="project">  </app-edit-project-dialog>
+               <v-btn fab accent color="red" @click="deleteProject(project.id)">
+                <v-icon>delete</v-icon>
+              </v-btn>
 </template>
         </v-card-actions>
       </v-card>
@@ -64,6 +67,7 @@
       project() {
         return this.$store.getters.loadedProject(this.id)
       },
+      
       userIsAuth() {
         return this.$store.getters.user !== null && this.$store.getters.user !== 'undefiend'
       },
@@ -78,6 +82,13 @@
       }
     },
     methods: {
+      deleteProject (item) {
+        console.log("index"+item)
+        confirm('Are you sure you want to delete this project?') 
+        && this.$store.dispatch('deleteProject', item )
+        window.location.href = '/projects'
+
+      },
       // addItem (item) {
       //   const removed = this.items.splice(0, 1)
       //   this.items.push(

@@ -7,7 +7,7 @@
     <v-layout row wrap >
       <!-- Widgets-->
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="face" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#00b297"/>
+        <widget icon="people" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#00b297"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
         <widget icon="work" :title="projects" subTitle= 'Projects' supTitle="Today's Projects" color="#dc3545"/>
@@ -97,11 +97,6 @@ export default {
           if(this.okay.length>=this.bad.length){
             return this.okay[0]
           }
-          // console.log(this.superhappy.length)
-          // console.log(this.happy.length)
-          // console.log(this.okay.length)
-          // console.log(this.bad.length)
-
 
 
       }

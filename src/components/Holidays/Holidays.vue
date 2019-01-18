@@ -2,8 +2,11 @@
     <div >
         <div class="col-md-12 control-section">
             <div class="content-wrapper">
-                <ejs-schedule id='Schedule' height="650px" :selectedDate='selectedDate' :currentView='currentView' :eventSettings='eventSettings'
-                    :group='group'>
+                <ejs-schedule id='Schedule' height="650px" 
+                    :selectedDate='selectedDate' :currentView='currentView' 
+                    :eventSettings='eventSettings'
+                    :group='group' :eventRendered="oneventRendered"
+                    :eventClick="onEventClick" :popupOpen="onPopupOpen">
                     <e-views>
                         <e-view option="TimelineDay"></e-view>
                         <e-view option="TimelineMonth"></e-view>
@@ -50,8 +53,9 @@
         data: function () {
             return {
                 eventSettings: {
-                    dataSource: this.generateData()
+                    dataSource: this.generateData(),
                 },
+                readonly: true,
                 selectedDate: new Date(),
                 currentView: 'TimelineMonth',
                 allowMultiple : true,
@@ -71,6 +75,26 @@
             generateData: function () {
                 return this.$store.getters.loadedHolidays
             },
+            isReadOnly: function (dataObj) {
+                let data = dataObj;
+                return data.ReadOnly || (data.StartTime < new Date());
+            },
+            onEventClick: function (args) {
+                if ((args.element).classList.contains('e-read-only')) {
+                    args.cancel = true;
+                }
+            },
+            onPopupOpen: function (args) {
+                if (args.type === 'Editor' && this.isReadOnly(args.data)) {
+                    args.cancel = true;
+                }
+            },
+            oneventRendered: function (args) {
+                if (this.isReadOnly(args.data)) {
+                    args.element.setAttribute('aria-readonly', 'true');
+                    args.element.classList.add('e-read-only');
+                }
+            }
             // editHolidays: function () {
             // let readonly = []
             // var dataCollections = this.$store.getters.loadedHolidays
