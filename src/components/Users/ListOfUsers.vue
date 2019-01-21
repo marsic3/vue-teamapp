@@ -50,7 +50,7 @@
       <template slot="items" slot-scope="props">
         <td class="text-xs-left">
         <v-avatar size="42">
-          <img :src="randomAvatar()" alt="avatar">
+          <img :src="props.item.avatar" alt="avatar">
         </v-avatar>
       </td>
         <!-- <td>{{ props.item.key }}</td> -->

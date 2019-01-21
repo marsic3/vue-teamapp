@@ -1,9 +1,9 @@
 <template>
     <v-container>
-        <v-layout row style="margin-top: 80px;">
+        <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
                 <v-layout row v-if="error">
-                    <v-flex xs12 sm12 >
+                    <v-flex xs12 sm12>
                         <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
                     </v-flex>
                 </v-layout>
@@ -13,91 +13,84 @@
                             <form @submit.prevent="onSignIn">
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-text-field
-                                        name="email"
-                                        label="E-mail"
-                                        id="email"
-                                        v-model="email"
-                                        type="email"
-                                        required>
+                                        <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required>
                                         </v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
-                                        <v-text-field
-                                        name="password"
-                                        label="Password"
-                                        id="password"
-                                        v-model="password"
-                                        type="password"
-                                        required>
+                                        <v-text-field name="password" label="Password" id="password" v-model="password" type="password" required>
                                         </v-text-field>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row>
                                     <v-flex xs12>
-                                       <v-btn
-                                       color="primary"
-                                       style="width: 100%"
-                                       type="submit"
-                                       :disabled="loading"
-                                       :loading="loading"
-                                       >Sign in
-                                       <span slot="loader" class="custom-loader">
-                                            <v-icon light>cached</v-icon>
-                                        </span>
-                                       </v-btn>
+                                        <v-btn color="primary" style="width: 100%" type="submit" :disabled="loading" :loading="loading">Sign in
+                                            <span slot="loader" class="custom-loader">
+                                                    <v-icon light>cached</v-icon>
+                                                </span>
+                                        </v-btn>
+                                        <!-- <v-btn color="red" style="width: 100%" :disabled="loading" :loading="loading" @click="signGoogleIn">
+                                            <v-icon color="white">fa fa-google fa-lg</v-icon>
+                                        </v-btn> -->
                                     </v-flex>
                                 </v-layout>
                             </form>
                         </v-container>
                     </v-card-text>
                 </v-card>
-
+    
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 
 <script>
-  export default {
-    data(){
-        return {
-            email:'',
-            password:'',
-        }
-    },
-    computed:{
-        user() {
-            return this.$store.getters.user
-        },
-        error() {
-            return this.$store.getters.error
-        },
-        loading() {
-            return this.$store.getters.loading
-        }
-    },
-    watch: {
-        user(value){
-            if(value !== null && value !== 'undefined'){
-                this.$router.push('/')
+    import * as firebase from 'firebase'
+    export default {
+        data() {
+            return {
+                email: '',
+                password: '',
             }
+        },
+        computed: {
+            user() {
+                return this.$store.getters.user
+            },
+            error() {
+                return this.$store.getters.error
+            },
+            loading() {
+                return this.$store.getters.loading
+            }
+        },
+        watch: {
+            user(value) {
+                if (value !== null && value !== 'undefined') {
+                    this.$router.push('/')
+                }
+            }
+        },
+        methods: {
+            onSignIn() {
+                //vuex
+                this.$store.dispatch('signUserIn', {
+                    email: this.email,
+                    password: this.password
+                })
+            },
+            signGoogleIn() {
+                var provider = new firebase.auth.GoogleAuthProvider();
+                this.$store.dispatch('signGoogle', provider)
+            },
+            onDismissed() {
+                this.$store.dispatch('clearError')
+            },
+    
+        },
+        props: {
+            source: String
         }
-    },
-    methods: {
-        onSignIn(){
-            //vuex
-            this.$store.dispatch('signUserIn', {email:this.email, password:this.password})
-        },
-        onDismissed(){
-            this.$store.dispatch('clearError')
-        },
-        
-    },
-    props: {
-      source: String
     }
-  }
 </script>

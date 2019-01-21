@@ -1,89 +1,83 @@
 <template>
-  <v-app id="inspire" >
-    <v-navigation-drawer
-      :clipped="$vuetify.breakpoint.lgAndUp"
-      v-model="drawer"
-      fixed
-      app
-      v-if="userIsAuth"
-    >
-  <v-toolbar flat class="transparent">
+  <v-app id="inspire">
+    <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app v-if="userIsAuth">
+      <v-toolbar flat class="transparent">
         <v-list class="pa-0">
           <v-list-tile avatar>
             <v-list-tile-avatar>
               <img :src="user.avatar">
             </v-list-tile-avatar>
-
+  
             <v-list-tile-content>
               <v-list-tile-title>{{user.firstName+ ' '+ user.lastName}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
       </v-toolbar>
-
+  
       <v-list dense>
         <template v-for="item in items">
-          <v-layout
-            v-if="item.heading"
-            :key="item.heading"
-            row
-            align-center
-          >
-            <v-flex xs6>
-              <v-subheader v-if="item.heading">
-                {{ item.heading }}
-              </v-subheader>
-            </v-flex>
-            <v-flex xs6 class="text-xs-center">
-              <a href="#!" class="body-2 black--text">EDIT</a>
-            </v-flex>
-          </v-layout>
-          <v-list-group
-            v-else-if="item.children"
-            v-model="item.model"
-            :key="item.text"
-            :prepend-icon="item.model ? item.icon : item['icon-alt']"
-            append-icon=""
-            
-          >
-            <v-list-tile slot="activator" >
-              <v-list-tile-content
-              >
+            <v-layout
+              v-if="item.heading"
+              :key="item.heading"
+              row
+              align-center
+            >
+              <v-flex xs6>
+                <v-subheader v-if="item.heading">
+                  {{ item.heading }}
+                </v-subheader>
+              </v-flex>
+              <v-flex xs6 class="text-xs-center">
+                <a href="#!" class="body-2 black--text">EDIT</a>
+              </v-flex>
+            </v-layout>
+            <v-list-group
+              v-else-if="item.children"
+              v-model="item.model"
+              :key="item.text"
+              :prepend-icon="item.model ? item.icon : item['icon-alt']"
+              append-icon=""
+              
+            >
+              <v-list-tile slot="activator" >
+                <v-list-tile-content
+                >
+                  <v-list-tile-title>
+                    {{ item.text }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile
+                v-for="(child, i) in item.children"
+                :key="i"
+                
+                >
+                <v-list-tile-action 
+                v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content>
+                  <v-list-tile-title>
+                    {{ child.text }}
+                  </v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list-group>
+            <v-list-tile 
+              v-else 
+              :key="item.text" 
+              :to="item.link">
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
                 <v-list-tile-title>
                   {{ item.text }}
                 </v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile
-              v-for="(child, i) in item.children"
-              :key="i"
-              
-              >
-              <v-list-tile-action 
-              v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
-                  {{ child.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list-group>
-          <v-list-tile 
-            v-else 
-            :key="item.text" 
-            :to="item.link">
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ item.text }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </template>
+</template>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar
@@ -147,58 +141,82 @@
 </template>
 
 <script>
-
-export default {
-  data: () => ({
+  export default {
+    data: () => ({
       dialog: false,
       drawer: true,
     }),
-  computed: {
-  items() {
-    let items = [
-      ]
-    if(this.userIsAuth){
-      items = [
-        { icon: 'home', text: 'Home', link:'/home'},
-        { icon: 'people', text: 'Employees', link:'/listofusers' },
-        { icon: 'folder_open', text: 'Projects', link:'/projects' },
-        { icon: 'event', text: 'Holidays', link:'/holidays' },
-      ]
-    }
-    return items
-  },
-  menuItems(){
-    let menuItems = [
-        { icon: 'lock_open', text: ' Sign in', link:'/signin' }, 
-        { icon: 'face', text: 'Sign up', link:'/signup' }, 
-
+    computed: {
+      items() {
+        let items = []
+        if (this.userIsAuth) {
+          items = [{
+              icon: 'home',
+              text: 'Home',
+              link: '/home'
+            },
+            {
+              icon: 'people',
+              text: 'Employees',
+              link: '/listofusers'
+            },
+            {
+              icon: 'folder_open',
+              text: 'Projects',
+              link: '/projects'
+            },
+            {
+              icon: 'event',
+              text: 'Holidays',
+              link: '/holidays'
+            },
+          ]
+        }
+        return items
+      },
+      menuItems() {
+        let menuItems = [{
+            icon: 'lock_open',
+            text: ' Sign in',
+            link: '/signin'
+          },
+          {
+            icon: 'face',
+            text: 'Sign up',
+            link: '/signup'
+          },
+  
         ]
-    if(this.userIsAuth){
-        menuItems = [
-        { icon: 'account_circle',text: ' Profile', link:'/profile'},
-        // { icon: 'exit_to_app',text: 'Log out', link:'/' }, 
-        ]
+        if (this.userIsAuth) {
+          menuItems = [{
+              icon: 'account_circle',
+              text: ' Profile',
+              link: '/profile'
+            },
+            // { icon: 'exit_to_app',text: 'Log out', link:'/' }, 
+          ]
+        }
+        return menuItems
+      },
+      userIsAuth() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== 'undefined'
+      },
+      user() {
+        return this.$store.getters.loadUser
+      },
+  
+    },
+    methods: {
+      onLogout() {
+        this.$store.dispatch('logout')
       }
-      return menuItems
     },
-    userIsAuth(){
-      return this.$store.getters.user !== null && this.$store.getters.user !== 'undefined'
-    },
-    user(){
-      return this.$store.getters.loadUser
-    },
-
-},
-  methods: {
-    onLogout(){
-      this.$store.dispatch('logout')
-    }
-  },
     props: {
       source: String
     }
   }
 </script>
+
 <style lang="stylus">
   @import './stylus/main'
 </style>

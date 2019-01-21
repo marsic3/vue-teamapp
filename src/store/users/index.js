@@ -1,6 +1,7 @@
 import * as firebase from 'firebase'
 import 'firebase/firestore/dist/index.cjs'
 
+
 export default ({
     state: {
         loadedEmployees: [],
@@ -63,7 +64,7 @@ export default ({
                 console.log("Document successfully deleted!");
                 commit('setLoading', false)
 
-                location.reload()
+            location.reload()
             }).catch(function(error) {
                 commit('setLoading', false)
                 console.error("Error removing document: ", error);
@@ -99,7 +100,7 @@ export default ({
                     console.log(payload.key+"===>"+updateObj)
                     commit('updateEmployee', payload)
                     console.log('document uspesno updatovan')
-
+                    location.reload()
                     commit('setLoading', false)
                 })
                 .catch((error) => {
@@ -115,13 +116,18 @@ export default ({
                 lastName: payload.lastName,
                 position: payload.position,
                 createdAt: Date.now(),
-                id: getters.getUserId+1,
                 color: '#E53935',
                 avatar: 'https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban'
             }
             firebase.firestore().collection("user").doc(payload.key).set(employee)
                 .then(() => {
                 console.log("Document written with ID: ", payload.key)
+                firebase.auth().sendPasswordResetEmail(payload.email).then(function() {
+                    // Email sent.
+                  }).catch(function(error) {
+                    // An error happened.
+                  });
+                firebase.auth().createUserWithEmailAndPassword(payload.email, '112233')
                 commit('createEmployee',employee)
                 commit('setLoading', false)  
                 })
@@ -165,6 +171,7 @@ export default ({
                                 key: doc.data().key,
                                 id: doc.data().id,
                                 color: doc.data().color,
+                                avatar: doc.data().avatar
                             })
                         })
                         commit('setLoadedEmployees', users)
@@ -211,6 +218,33 @@ export default ({
                 console.log(error)
             })
         },
+        // signGoogle({commit}, payload){
+        //     commit('setLoading', true)
+        //     commit('clearError')
+        //     firebase.auth().signInWithPopup(payload).then(function(result) {
+        //         // This gives you a Google Access Token. You can use it to access the Google API.
+        //         var token = result.credential.accessToken;
+        //         // The signed-in user info.
+        //         // var user = result.user;
+        //         const newUser = {
+        //             id:result.user.uid
+        //         }
+        //         commit('setUser', newUser)
+        //         // ...
+        //       }).catch(function(error) {
+        //         commit('setError', error)
+        //         commit('setLoading', false)
+        //         console.log(error)
+        //         // Handle Errors here.
+        //         var errorCode = error.code;
+        //         var errorMessage = error.message;
+        //         // The email of the user's account used.
+        //         var email = error.email;
+        //         // The firebase.auth.AuthCredential type that was used.
+        //         var credential = error.credential;
+        //         // ...
+        //       })
+        // },
         autoSignIn({commit}, payload){
             commit('setUser', {id: payload.uid,
                                password: payload.password,

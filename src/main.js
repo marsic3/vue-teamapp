@@ -25,6 +25,10 @@ import VueChartkick from 'vue-chartkick';
 import PrettyInput from 'pretty-checkbox-vue/input';
 import PrettyCheck from 'pretty-checkbox-vue/check';
 import PrettyRadio from 'pretty-checkbox-vue/radio';
+import 'font-awesome/css/font-awesome.css';  
+
+// const functions = require('firebase-functions');
+
 
 firebase.initializeApp(firebaseConfig)
 export const db = firebase.firestore()
@@ -39,6 +43,7 @@ Vue.use(VueChartkick, { adapter: Chart });
 
 // Vue.component("menu-icon", MenuIcon)
 Vue.config.productionTip = false
+// Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('swatches', swatches);
 Vue.component('app-alert', Alert)
 Vue.component('app-alert-success', AlertSuccess)
