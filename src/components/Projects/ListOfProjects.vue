@@ -144,13 +144,9 @@ export default {
           this.$router.push('/projects/'+id)
       },
       onCreateProject(){
-          var element = 0
-          var num = this.$store.getters.loadedProjects.length
-          for (let i = 0; i < num; i++) {
-            element += num[i];
-            element++
-          }
-          console.log(typeof element)
+          var number = Math.random() // 0.9394456857981651
+          number.toString(36); // '0.xtis06h6'
+          var num = number.toString(36).substr(2, 9); // 'xtis06h6'
           this.dialog = false
           console.log('project created')
           if(!this.formIsValid){

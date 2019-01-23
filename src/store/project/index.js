@@ -86,7 +86,7 @@ export default ({
             }
             let imageUrl
             let uploadTask
-            firebase.firestore().collection("projects").doc("p" + project.id).set(project)
+            firebase.firestore().collection("projects").doc("p" + payload.id).set(project)
                 .then((user) => {
                     console.log("Document successfully written!" + user)
                 }).then(() => {

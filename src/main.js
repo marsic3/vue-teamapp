@@ -71,12 +71,13 @@ new Vue({
   
   firebase.auth().onAuthStateChanged(user => {
     if(user){
-      this.$store.dispatch('autoSignIn', user)
       this.$store.dispatch('loadUserInfo', user)
+      this.$store.dispatch('autoSignIn', user)
       this.$store.dispatch('loadedProject')
-      this.$store.dispatch('loadedEmployee')
       this.$store.dispatch('loadedHolidays')
       this.$store.dispatch('loadedTimeSheet')
+      this.$store.dispatch('loadedEmployee')
+
     }
   })
 

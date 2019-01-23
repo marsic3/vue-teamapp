@@ -12,20 +12,20 @@
                         <v-container grid-list-xl text-xs-center>
                             <form @submit.prevent="onSignUp">
                                 <v-layout row>
+                                     <v-flex xs12>
+                                        <v-text-field name="firstName" label="First Name" id="firstName" v-model="firstName" type="text" required>
+                                        </v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row>
+                                     <v-flex xs12>
+                                        <v-text-field name="lastName" label="Last Name" id="lastName" v-model="lastName" type="text" required>
+                                        </v-text-field>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row>
                                     <v-flex xs12>
                                         <v-text-field name="email" label="E-mail" id="email" v-model="email" type="email" required>
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field name="password" label="Password" id="password" v-model="password" type="password" required>
-                                        </v-text-field>
-                                    </v-flex>
-                                </v-layout>
-                                <v-layout row>
-                                    <v-flex xs12>
-                                        <v-text-field name="confirmPassword" label="Confirm Password" id="confirmPassword" v-model="confirmPassword" type="password" required :rules="[comparePasswords]">
                                         </v-text-field>
                                     </v-flex>
                                 </v-layout>
@@ -34,7 +34,7 @@
                                         <v-btn 
                                         color="primary"
                                         style="width: 100%"
-                                        type="submit" :disabled="loading" :loading="loading">Sign up
+                                        type="submit" :disabled="loading" :loading="loading">Request account
                                             <span slot="loader" class="custom-loader">
                                                 <v-icon light>cached</v-icon>
                                             </span>
@@ -56,14 +56,15 @@
         data() {
             return {
                 email: '',
-                password: '',
-                confirmPassword: ''
+                firstName: '',
+                lastName: ''
+                
             }
         },
         computed: {
-            comparePasswords() {
-                return this.password !== this.confirmPassword ? 'Password do not match' : ''
-            },
+            // comparePasswords() {
+            //     return this.password !== this.confirmPassword ? 'Password do not match' : ''
+            // },
             user() {
                 return this.$store.getters.user
             },
@@ -84,10 +85,9 @@
         methods: {
             onSignUp() {
                 //vuex
-                this.$store.dispatch('signUserUp', {
-                    email: this.email,
-                    password: this.password
-                })
+                this.$store.dispatch('signUserUp', {email: this.email,
+                                                    firstName: this.firstName,
+                                                    lastName: this.lastName})
             },
             onDismissed() {
                 this.$store.dispatch('clearError')

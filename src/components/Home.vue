@@ -53,7 +53,10 @@ export default {
 
     }
   },
- 
+  mounted () {
+    this.$store.dispatch('loadedEmployee')
+
+  },
   computed: {
       users(){
         return this.$store.getters.loadedEmployees.length

@@ -2,7 +2,7 @@
   <v-data-table
     class="table"
     :headers="headers"
-    :items="users"
+    :items="empolyees"
     :rows-per-page-items="[10, 25]">
     <template slot="items" slot-scope="props">
       <td class="text-xs-left">
@@ -91,7 +91,7 @@ export default {
   computed: {
     empolyees () {
       return this.$store.getters.loadedEmployees
-    }
+    },
   }
 }
 </script>

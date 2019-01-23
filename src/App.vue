@@ -149,7 +149,7 @@
     computed: {
       items() {
         let items = []
-        if (this.userIsAuth) {
+         if (this.userIsAuth && this.user.admin) {
           items = [{
               icon: 'home',
               text: 'Home',
@@ -159,6 +159,24 @@
               icon: 'people',
               text: 'Employees',
               link: '/listofusers'
+            },
+            {
+              icon: 'folder_open',
+              text: 'Projects',
+              link: '/projects'
+            },
+            {
+              icon: 'event',
+              text: 'Holidays',
+              link: '/holidays'
+            },
+          ]
+        }
+         else if (this.userIsAuth) {
+          items = [{
+              icon: 'home',
+              text: 'Home',
+              link: '/home'
             },
             {
               icon: 'folder_open',
