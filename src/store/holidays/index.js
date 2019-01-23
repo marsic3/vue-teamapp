@@ -9,24 +9,7 @@ export default ({
     mutations: {
         setLoadedHolidays(state, payload) {
             state.loadedHolidays = payload
-        },
-        // updateProject(state, payload) {
-        //     const project = state.loadedHolidays.find(project => {
-        //         return project.id === payload.id
-        //     })
-        //     if (payload.projectName) {
-        //         project.projectName = payload.projectName
-        //     }
-        //     if (payload.description) {
-        //         project.description = payload.description
-        //     }
-        //     if (payload.date) {
-        //         project.date = payload.date
-        //     }
-        // },
-        createHoliday(state, payload) {
-            state.loadedHolidays.push(payload)
-        },
+        }
 
     },
     actions: {
@@ -45,6 +28,7 @@ export default ({
                             IsAllDay: doc.data().IsAllDay,
                             Subject: doc.data().Subject,
                             TaskId: doc.data().TaskId,
+                            
                             // creatorId: doc.data().creatorId
                         })
                     })
@@ -60,38 +44,7 @@ export default ({
                     }
                 )
         },
-        createHoliday({ commit, getters }, payload) {
-            const holiday = {
-                Id: payload.id,
-                StartTime: payload.startTime,
-                EndTime: payload.endTime,
-                IsAllDay: payload.isAllDay,
-                Subject: payload.subject,
-                TaskId: payload.taskId,
-            }
-            firebase.firestore().collection("holidays").doc().set(holiday)
-            .then(() => {
-                console.log("Document written with ID: ", payload.id)
-                commit('createHoliday',holiday)
-                commit('setLoading', false)  
-                })
-                .catch(error => {
-                    commit('setLoading', false)    
-                    console.log(error)
-                })
-        },
-        // updateHoliday() {
-        //     return firebase.firestore().collection("holidays").doc("DC").update({
-        //         capital: true
-        //     })
-        //         .then(function () {
-        //             console.log("Document successfully updated!");
-        //         })
-        //         .catch(function (error) {
-        //             console.error("Error updating document: ", error);
-        //         });
-
-        // },
+        
     },
     getters: {
         loadedHolidays(state) {

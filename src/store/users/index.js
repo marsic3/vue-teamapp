@@ -8,12 +8,17 @@ export default ({
         color: null,
         userId: 0,
         user: null,
-        userData: null
+        userData: null,
+        token: null
     },
     mutations: {
         setUser (state, payload) {
             state.user = payload
           },
+          // SET TOKEN
+        setToken (state, token) {
+            state.token = token
+        },
         setLoadedEmployees (state, payload) {
             console.log('setovao'+payload)
             state.loadedEmployees = payload
@@ -211,6 +216,18 @@ export default ({
                     id:response.user.uid
                 }
                 commit('setUser', newUser)
+                var user = firebase.auth().currentUser;
+
+                console.log(response.user)
+                localStorage.setItem('userToken',response.user.ra)
+                // firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+                //     // Send token to your backend via HTTPS
+                //     // ...
+                //     commit('setToken', idToken)
+                //     console.log('token ===>'+idToken)
+                //   }).catch(function(error) {
+                //     // Handle error
+                //   });
             })
             .catch(error => {
                 commit('setError', error)

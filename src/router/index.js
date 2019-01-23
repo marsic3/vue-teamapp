@@ -22,12 +22,16 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      component: Home,
+      beforeEnter: auth
+
     },
     {
       path: '/projects',
       name: 'ListOfProjects',
-      component: ListOfProjects
+      component: ListOfProjects,
+      beforeEnter: auth
+
     },
   
     {
@@ -35,6 +39,8 @@ export default new Router({
       name: 'Project',
       props: true,
       component: Project,
+      beforeEnter: auth
+
     },
     {
       path: '/profile',
@@ -45,7 +51,9 @@ export default new Router({
     {
       path: '/listofusers',
       name: 'ListOfUsers',
-      component: ListOfUsers
+      component: ListOfUsers,
+      beforeEnter: auth
+
     },
     {
       path: '/signin',
@@ -60,7 +68,9 @@ export default new Router({
     {
       path: '/holidays',
       name: 'Holidays',
-      component: Holidays
+      component: Holidays,
+      beforeEnter: auth
+
     },
   ],
   mode: 'history'
