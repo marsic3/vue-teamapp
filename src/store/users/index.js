@@ -130,7 +130,7 @@ export default {
         firstName: payload.firstName,
         lastName: payload.lastName,
         position: payload.position,
-        createdAt: Date.now(),
+        createdAt: new Date(),
         color: "#E53935",
         avatar:
           "https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban",

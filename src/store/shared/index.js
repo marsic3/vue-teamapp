@@ -33,7 +33,7 @@ export default {
         project: payload.project,
         happiness: payload.happiness,
         workingHours: payload.workingHours,
-        createdAt: Date.now(),
+        createdAt: new Date(),
     }
     firebase.firestore().collection("timesheet").doc().set(timesheet)
         .then(() => {

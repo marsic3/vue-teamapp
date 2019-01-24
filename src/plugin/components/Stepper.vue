@@ -64,17 +64,6 @@
                 </v-btn>
              </v-btn-toggle>
               </v-flex>
-              <!-- <v-spacer></v-spacer> -->
-              <!-- <v-flex d-flex lg6>
-                <v-text-field
-                  v-model="email"
-                  label="CVC" />
-              </v-flex>
-              <v-flex d-flex lg6>
-                <v-text-field
-                  v-model="email"
-                  label="Phone Number" />
-              </v-flex> -->
               <v-flex d-flex lg4></v-flex>
               <v-flex d-flex lg4>
                 <v-btn flat color="primary" @click="submit">
@@ -104,7 +93,7 @@
         select: null,
         items: [],
         checkbox: false,
-        date: new Date().toISOString().substr(0, 10),
+        // date: new Date().toISOString().substr(0, 10),
         error: null,
         success: null
       }
@@ -124,11 +113,16 @@
         this.error = 'Please select the happiness'
         return
         }
-
+        const lista = this.$store.getters.loadedProjects
+        for (let i = 0; i < lista.length; i++) {
+          if(this.select === lista[i].projectName){
+            this.select = lista[i].id
+          }
+        }
         const payload = {
           project: this.select,
           happiness: this.toggle_one,
-          workingHours: this.workingHours
+          workingHours: this.workingHours,
         }
         this.$store.dispatch('createTimeSheet', payload)
         this.error = null

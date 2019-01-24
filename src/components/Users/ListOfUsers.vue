@@ -44,7 +44,7 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
-    <v-data-table :headers="headers" :items="users" class="elevation-1" :rows-per-page-items="[10, 25]">
+    <v-data-table :headers="headers" row :items="users" class="elevation-1" :rows-per-page-items="[5, 10, 25]">
   
       >
       <template slot="items" slot-scope="props">
@@ -58,7 +58,15 @@
           <td class="text-xs-left">{{ props.item.firstName }}</td>
           <td class="text-xs-left">{{ props.item.lastName }}</td>
           <td class="text-xs-left">{{ props.item.position }}</td>
-          <td class="text-xs-center layout ">
+          
+          <td class="justify-center" style="vertical-align: text-bottom;">
+            <v-switch 
+              readonly 
+              v-model="props.item.admin">
+            </v-switch>
+          </td>
+
+          <td class="text-xs-center layout" >
             <v-icon
               small
               class="mr-2"
@@ -73,6 +81,7 @@
               delete
             </v-icon>
           </td>
+
 </template>
 
 <template slot="no-data">
@@ -119,6 +128,10 @@
           {
             text: 'Position',
             value: 'position'
+          },
+          {
+            text: 'Admin',
+            value: 'admin'
           },
           {
             text: 'Actions',

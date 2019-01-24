@@ -62,7 +62,8 @@ export default ({
                             description: doc.data().description,
                             date: doc.data().date,
                             id: doc.data().id,
-                            creatorId: doc.data().creatorId
+                            creatorId: doc.data().creatorId,
+                            status: doc.data().status
                         })
                     })
                     commit('setLoadedProjects', projects)

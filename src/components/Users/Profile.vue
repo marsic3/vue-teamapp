@@ -1,7 +1,7 @@
 <template>
     <v-container fluid grid-list-md >
         <v-layout row wrap>
-            <v-flex xs12 sm6 lg12 >
+            <v-flex xs12 sm12 lg12 >
                 <div class="col-md-12 control-section">
                     <v-card>
                         <v-img src="https://cdn.vuetifyjs.com/images/lists/ali.png" height="200px">
