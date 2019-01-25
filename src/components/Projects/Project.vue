@@ -27,6 +27,8 @@
             <v-tab-item>
               <v-card flat>
                 <v-card-text> {{ project.description }}</v-card-text>
+                <statistic> </statistic>
+
               </v-card>
             </v-tab-item>
           </v-tabs>

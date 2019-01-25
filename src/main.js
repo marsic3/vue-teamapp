@@ -20,6 +20,7 @@ import TimeLine from '../src/plugin/components/TimeLine';
 import UserTreeView from '../src/plugin/components/UserTreeView';
 import Stepper from '../src/plugin/components/Stepper';
 import LocationStatistic from '../src/plugin/components/LocationStatistic';
+import Statistic from '../src/plugin/components/Statistic';
 import Chart from 'chart.js';
 import VueChartkick from 'vue-chartkick';
 import PrettyInput from 'pretty-checkbox-vue/input';
@@ -59,6 +60,8 @@ Vue.component('p-check', PrettyCheck);
 Vue.component('p-radio', PrettyRadio);
 
 Vue.component('location-statistic', LocationStatistic);
+Vue.component('statistic', Statistic);
+
 // Vue.component('site-view-statistic', SiteViewStatistic);
 // Vue.component('total-earnings-statistic', TotalEarningsStatistic);
 /* eslint-disable no-new */

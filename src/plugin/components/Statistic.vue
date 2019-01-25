@@ -1,7 +1,7 @@
 <template>
-  <v-card>
-    <v-card-text class="pa-0">
-      <pie-chart :data="data" legend="bottom" :colors="['#d11', '#112', '#23f', '#45a']"></pie-chart>
+  <v-card class="card">
+    <v-card-text class="pa-2">
+      <pie-chart :data="data" legend="right" :donut="true"></pie-chart>
     </v-card-text>
   </v-card>
 </template>
@@ -10,12 +10,18 @@
 export default {
   data() {
     return {
-      data: {'Blueberry': 44, 'Strawberry': 23, 'Abc': 11, 'Def': 88}
+      data: {'Superhappy': 90, 'Happy': 70, 'Okay': 40, 'Sad': 30}
     }
   }
 }
 </script>
 
 <style>
-
+  .card {
+    border-radius: 3px;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.21);
+    background-color: transparent;
+  }
 </style>
