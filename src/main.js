@@ -27,16 +27,23 @@ import PrettyInput from 'pretty-checkbox-vue/input';
 import PrettyCheck from 'pretty-checkbox-vue/check';
 import PrettyRadio from 'pretty-checkbox-vue/radio';
 import 'font-awesome/css/font-awesome.css';  
-
+import ApexCharts from 'apexcharts'
+import VueGraph from 'vue-graph'
 // const functions = require('firebase-functions');
+import GraphLine3D from 'vue-graph/src/components/line3d.js'
+import NoteWidget from 'vue-graph/src/widgets/note.js'
+import LegendWidget from 'vue-graph/src/widgets/legends.js'
 
+Vue.component(GraphLine3D.name, GraphLine3D);
+Vue.component(NoteWidget.name, NoteWidget);
+Vue.component(LegendWidget.name, LegendWidget);
 
 firebase.initializeApp(firebaseConfig)
 export const db = firebase.firestore()
 const settings = {timestampsInSnapshots: true};
 db.settings(settings);
 
-
+Vue.use(VueGraph)
 Vue.use(Vuetify)
 Vue.use(VueChartkick, { adapter: Chart });
 
@@ -45,6 +52,7 @@ Vue.use(VueChartkick, { adapter: Chart });
 // Vue.component("menu-icon", MenuIcon)
 Vue.config.productionTip = false
 // Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('apexchart', ApexCharts);
 Vue.component('swatches', swatches);
 Vue.component('app-alert', Alert)
 Vue.component('app-alert-success', AlertSuccess)

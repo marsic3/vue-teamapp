@@ -22,6 +22,8 @@
               <v-card flat>
                 <v-card-text>{{ project.projectName }}</v-card-text>
                 <location-statistic> </location-statistic>
+                <location-statistic> </location-statistic>
+
               </v-card>
             </v-tab-item>
             <v-tab-item>
@@ -85,10 +87,10 @@
     },
     methods: {
       deleteProject (item) {
-        console.log("index"+item)
+        console.log("p"+item)
         confirm('Are you sure you want to delete this project?') 
         && this.$store.dispatch('deleteProject', item )
-        window.location.href = '/projects'
+        // window.location.href = '/projects'
 
       },
       // addItem (item) {

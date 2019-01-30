@@ -14,7 +14,7 @@
                     </v-img> -->
                   <v-card-title>
                     <div>
-                      <span class="pink--text" style="font-size:20px">{{item.projectName}}</span><br>
+                      <span class="pink--text" style="font-size:25px">{{item.projectName}}</span><br>
                       <!-- <span>{{item.description}}</span><br> -->
                       <!-- <location-statistic> </location-statistic> -->
                     </div>
@@ -27,7 +27,7 @@
                     <v-tab ripple>
                       Basic Info
                     </v-tab>
-                    <v-tab ripple>
+                    <v-tab ripple v-bind:id="item.id" @click="onClick(item.id)">
                       Statistics
                     </v-tab>
                     <v-tab ripple>
@@ -45,7 +45,7 @@
                         <v-list two-line>
                           <v-list-tile>
                             <v-list-tile-action>
-                              <v-icon color="indigo">extension</v-icon>
+                              <v-icon color="pink">extension</v-icon>
                             </v-list-tile-action>
   
                             <v-list-tile-content>
@@ -59,7 +59,7 @@
   
                           <v-list-tile>
                             <v-list-tile-action>
-                              <v-icon color="indigo">account_box</v-icon>
+                              <v-icon color="pink">account_box</v-icon>
                             </v-list-tile-action>
   
                             <v-list-tile-content>
@@ -70,7 +70,7 @@
                           <v-divider inset></v-divider>
                           <v-list-tile>
                             <v-list-tile-action>
-                              <v-icon color="indigo">date_range</v-icon>
+                              <v-icon color="pink">date_range</v-icon>
                             </v-list-tile-action>
   
                             <v-list-tile-content>
@@ -81,7 +81,7 @@
                           <v-divider inset></v-divider>
                           <v-list-tile>
                             <v-list-tile-action>
-                              <v-icon color="indigo">trending_up</v-icon>
+                              <v-icon color="pink">trending_up</v-icon>
                             </v-list-tile-action>
   
                             <v-list-tile-content>
@@ -93,7 +93,7 @@
                         </v-list>
                       </v-card>
                     </v-tab-item>
-                    <v-tab-item>
+                    <v-tab-item >
                       <v-card flat>
                         <v-card-text>{{ item.projectName }}</v-card-text>
                         <location-statistic> </location-statistic>
@@ -209,6 +209,11 @@
     methods: {
       onDetail(id) {
         this.$router.push('/projects/' + id)
+      },
+      onClick(id) {
+        this.$store.dispatch('loadedWorkingHours', id)
+        // console.log(id)
+        // alert('click')
       },
   
       onCreateProject() {

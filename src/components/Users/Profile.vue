@@ -3,7 +3,7 @@
         <v-layout row wrap>
             <v-flex xs12 sm12 lg12 >
                 <div class="col-md-12 control-section">
-                    <v-card>
+                    <!-- <v-card>
                         <v-img src="https://cdn.vuetifyjs.com/images/lists/ali.png" height="200px">
                             <v-layout column fill-height>
                                 <v-spacer></v-spacer>
@@ -12,7 +12,7 @@
                                         User Profile
                                     </div>
                                 </v-card-title>
-                                <!-- <v-layout row v-if="error">
+                                <v-layout row v-if="error">
                                 <v-flex xs12 sm12>
                                     <app-alert @dismissed="onDismissed" :text="error"></app-alert>
                                 </v-flex>
@@ -21,10 +21,10 @@
                                 <v-flex xs12 sm12>
                                     <app-alert-success @dismissed="onDismissed" :text="success"></app-alert-success>
                                 </v-flex>
-                            </v-layout> -->
+                            </v-layout>
                             </v-layout>
                         </v-img>
-                    </v-card>
+                    </v-card> -->
                     <v-tabs color="primary" dark slider-color="primary">
                         <v-tab ripple>
                             Edit Profile
@@ -209,6 +209,7 @@
                 result: '',
                 error: null,
                 success: null,
+                admin: this.$store.getters.loadUser.admin,
                 key: this.$store.getters.loadUser.key,
                 items: [{
                         icon: 'account_circle',
@@ -268,6 +269,7 @@
             setUpSettings() {
                 const vm = this;
                 const payload = {
+                    admin: this.admin,
                     key: this.key,
                     email: this.userEmail,
                     firstName: this.firstName,

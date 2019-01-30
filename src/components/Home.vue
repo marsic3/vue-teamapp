@@ -6,6 +6,7 @@
   <v-container fluid grid-list-xl align-content-center>
     <v-layout row wrap >
       <!-- Widgets-->
+
       <v-flex d-flex lg3 sm6 xs12>
         <widget icon="people" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#00b297"/>
       </v-flex>
