@@ -8,10 +8,10 @@
               <v-flex v-for="item in items" v-bind="{ [`xs12`]: true }" :key="item.projectName">
                 <v-card>
                   <!-- <v-img 
-                      max-width="400px"
-                      :src="item.imageUrl"
-                      :aspect-ratio="21/4">
-                    </v-img> -->
+                        max-width="400px"
+                        :src="item.imageUrl"
+                        :aspect-ratio="21/4">
+                      </v-img> -->
                   <v-card-title>
                     <div>
                       <span class="pink--text" style="font-size:25px">{{item.projectName}}</span><br>
@@ -27,15 +27,15 @@
                     <v-tab ripple>
                       Basic Info
                     </v-tab>
-                    <v-tab ripple v-bind:id="item.id" @click="onClick(item.id)">
+                    <v-tab ripple>
                       Statistics
                     </v-tab>
-                    <v-tab ripple>
+                    <v-tab ripple  v-on:click="sendId(item.id)">
                       Project Happiness
                     </v-tab>
-                    <v-tab ripple>
+                    <!-- <v-tab ripple>
                       People on Project
-                    </v-tab>
+                    </v-tab> -->
                     <v-tab ripple>
                       Description
                     </v-tab>
@@ -93,22 +93,24 @@
                         </v-list>
                       </v-card>
                     </v-tab-item>
-                    <v-tab-item >
+                    <v-tab-item>
                       <v-card flat>
                         <v-card-text>{{ item.projectName }}</v-card-text>
-                        <location-statistic> </location-statistic>
+                        <div>
+                         <location-statistic v-bind:id="item.id"></location-statistic>
+                        </div>
                       </v-card>
                     </v-tab-item>
                     <v-tab-item>
                       <v-card flat>
-                         <statistic> </statistic>
+                        <statistic v-bind:id="item.id"> </statistic>
                       </v-card>
                     </v-tab-item>
-                     <v-tab-item>
+                    <!-- <v-tab-item>
                       <v-card flat>
                         <data-table> </data-table>
                       </v-card>
-                    </v-tab-item>
+                    </v-tab-item> -->
                     <v-tab-item>
                       <v-card flat>
                         <v-card-text> {{ item.description }}</v-card-text>
@@ -147,8 +149,8 @@
                     <v-flex xs12>
                       <v-textarea prepend-icon="notes" placeholder="Description" id="description" v-model="description"></v-textarea>
                     </v-flex>
-
-                  <!-- <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+  
+                    <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
                       <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
                       <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
                     </v-flex>
@@ -156,13 +158,13 @@
                       <v-flex xs12 sm6 offset-sm3>
                         <img :src="imageUrl" height="130px">
                       </v-flex>
-                    </v-layout> -->
-
-                    <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-                      <img :src="imageUrl" height="150" v-if="imageUrl" />
-                      <v-text-field label="Select Image" @click='onPickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
-                      <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
-                    </v-flex>
+                    </v-layout>
+  
+                    <!-- <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+                        <img :src="imageUrl" height="150" v-if="imageUrl" />
+                        <v-text-field label="Select Image" @click='onPickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
+                        <input type="file" style="display: none" ref="image" accept="image/*" @change="onFilePicked">
+                      </v-flex> -->
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -182,9 +184,10 @@
 <script>
   import * as firebase from 'firebase'
   export default {
-  
-    data() {
+    data: function () {
       return {
+        values: [],
+        labels: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec'],
         show: false,
         dialog: false,
         projectName: '',
@@ -204,15 +207,23 @@
           this.email !== '' &&
           this.imageUrl !== ''
       },
-  
+
     },
     methods: {
       onDetail(id) {
         this.$router.push('/projects/' + id)
       },
+      sendId(id) {
+        this.$store.dispatch('getProjectId',id)
+        console.log(id)
+      },
       onClick(id) {
-        this.$store.dispatch('loadedWorkingHours', id)
-        // console.log(id)
+        let lista = this.$store.dispatch('loadedWorkingHours',id)
+        for (let i = 0; i < lista.length; i++) {
+          this.values.push(lista[i].workingHours)
+        }
+        this.values.push(lista)
+        console.log(this.values)
         // alert('click')
       },
   

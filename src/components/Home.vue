@@ -8,16 +8,22 @@
       <!-- Widgets-->
 
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="people" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#00b297"/>
+        <widget icon="people" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#78909C"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="work" :title="projects" subTitle= 'Projects' supTitle="Today's Projects" color="#dc3545"/>
+        <widget icon="work" :title="projects" subTitle= 'Projects' supTitle="Today's Projects" color="#78909C"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="insert_emoticon" :title="loadedHappiness" subTitle= 'Average feeling' supTitle="Current average feeling" color="#0866C6"/>
+        <widget icon="insert_emoticon" :title="loadedHappiness" subTitle= 'Average feeling' supTitle="Current average feeling" color="#D4E157"/>
       </v-flex>
       <v-flex d-flex lg3 sm6 xs12>
-        <widget icon="watch_later" :title="loadedworkingHours" subTitle= 'Total working hours' supTitle="Bounce Rate" color="#1D2939"/>
+        <widget icon="watch_later" :title="loadedworkingHours" subTitle= 'Total working hours' supTitle="Bounce Rate" color="#D4E157"/>
+      </v-flex>
+      <v-flex d-flex lg6 sm6 xs12>
+        <widget icon="watch_later" :title="loadedworkingHours" subTitle= 'Total working hours' supTitle="Bounce Rate" color="#78909C"/>
+      </v-flex>
+      <v-flex d-flex lg6 sm6 xs12>
+        <widget icon="watch_later" :title="loadedworkingHours/projects" subTitle= 'Average hours per project' supTitle="Bounce Rate" color="#D4E157"/>
       </v-flex>
       <!-- DataTable&TimeLine Starts -->
 

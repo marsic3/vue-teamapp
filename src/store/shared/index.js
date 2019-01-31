@@ -5,7 +5,8 @@ export default {
     loading: false,
     error: null,
     loadedTimeSheet: [],
-    workingHours: []
+    workingHours: [],
+    projectData: []
   },
   mutations: {
     setLoading(state, payload) {
@@ -23,8 +24,11 @@ export default {
     setLoadedTimesheet(state, payload) {
       state.loadedTimeSheet = payload;
     },
+    setProjectData(state, payload) {
+      state.projectData.push(payload);
+    },
     setLoadedWorkingHours(state, payload) {
-      console.log("3");
+      console.log(payload.workingHours);
       state.workingHours.push(payload);
       // console.log(state.workingHours);
     }
@@ -56,12 +60,31 @@ export default {
           console.log(error);
         });
     },
+    getProjectId({ commit }, id) {
+      commit("setLoading", true);
+      // console.log("p" + id);
+      firebase
+        .firestore()
+        .collection("timesheet")
+        .where("project", "==", id)
+        .get()
+        .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+        console.log(doc.id, " => ", doc.data());
+        commit("setProjectData", doc.data());
+        commit("setLoading", false);
+        });
+
+      }).catch(function(error) {
+        console.log("Error getting documents: ", error);
+      });
+    },
     loadedTimeSheet({ commit }) {
       commit("setLoading", true);
       firebase
         .firestore()
         .collection("timesheet")
-        .where("project", "==", 0)
+        // .where("project", "==", 0)
         .get()
         .then(function(querySnapshot) {
           const timesheets = [];
@@ -115,6 +138,9 @@ export default {
     },
     loadedWorkingHours(state) {
       return state.workingHours;
+    },
+    getProjectData(state) {
+      return state.projectData
     },
       loadedProjectWorkingHours(state) {
         return (projectId) => {

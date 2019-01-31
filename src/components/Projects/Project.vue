@@ -22,8 +22,6 @@
               <v-card flat>
                 <v-card-text>{{ project.projectName }}</v-card-text>
                 <location-statistic> </location-statistic>
-                <location-statistic> </location-statistic>
-
               </v-card>
             </v-tab-item>
             <v-tab-item>

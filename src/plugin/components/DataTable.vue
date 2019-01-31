@@ -5,6 +5,7 @@
     :items="empolyees"
     :rows-per-page-items="[5,10, 25]">
     <template slot="items" slot-scope="props">
+      
       <td class="text-xs-left">
         <v-avatar size="42">
           <img :src="props.item.avatar" alt="avatar">
@@ -82,7 +83,7 @@ export default {
 
     // firebase.firestore().collection("user").get().then(response => {
       var result = this.empolyees
-      console.log(result+'sdada')
+      // console.log(result+'sdada')
 
       vm.users = result;
     // })

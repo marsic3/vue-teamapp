@@ -30,7 +30,7 @@
                             Edit Profile
                         </v-tab>
                         <v-tab ripple>
-                            Edit Account
+                            Change password
                         </v-tab>
                         <v-tab-item>
                             <v-card>

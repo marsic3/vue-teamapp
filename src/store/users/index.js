@@ -135,7 +135,7 @@ export default {
         avatar:
           "https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban",
         admin: payload.admin,
-        id: getters.loadedEmployees.length+1
+        id: payload.email
       };
       firebase
         .firestore()

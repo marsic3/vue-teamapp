@@ -1,43 +1,61 @@
 <template>
-<div >
+<div id="id">
     <graph-line
             :width="1000"
             :height="400"
             :labels="labels"
-            :values="loadedworkingHours">
+            :values="loadedWorkingHours">
     </graph-line>
 </div>
 </template>
 <script>
+import Vue from "vue";
 export default {
-  props: ['id'],
-  data () {
+  props: ["id"],
+  data: function() {
     return {
-    // id: this.id,
-    values: [],
-    labels: [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dec']
-    }
+      values: [],
+      labels: [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Okt",
+        "Nov",
+        "Dec"
+      ]
+    };
   },
-   computed: {
-      project() {
-        return this.$store.getters.loadedProjects
-      },
-      loadedworkingHours(){
-      return this.$store.getters.loadedProjectWorkingHours(this.id)
-      // console.log(lista)
-      // this.values.push(lista)
-      // lista = null
-      // console.log(this.values)
-      // let listaProjekata = this.$store.getters.loadedProjects
-      console.log(this.$store.getters.loadedProjectWorkingHours(this.id))
-      // for (let i = 0; i < lista.length; i++) {
-      //       if(lista[i].createdAt.seconds<1548892800 && lista[i].createdAt.seconds>1546300800){
-      //       // console.log(lista[i].createdAt.seconds>1548892800 )
-      //       this.values.push(Number(lista[i].workingHours)) }
-      //   }
-      //   return this.values
-      }
+  computed: {
+    project() {
+      return this.$store.getters.loadedProjects;
     },
+    loadedWorkingHours() {
+      // console.log(this.id + " == ID");
+      let lista = this.$store.getters.loadedTimeSheet;
+      let ids = []
+      let total = 0
+      ids.push(this.id)
+      console.log(lista);
+      for (let i = 0; i < lista.length; i++) {
+        // console.log(lista[i])
+        if(lista[i].project === this.id){
+            if(lista[i].createdAt.seconds<1548979200 && lista[i].createdAt.seconds>1546300800){
+           total+= Number(lista[i].workingHours)
+            this.values.push(Number(lista[i].workingHours)) 
+            }
+        } 
+        }
+                    console.log(total+'total!')
 
-}
+        return total
+      }
+    }
+  }
+
 </script>
