@@ -1,22 +1,15 @@
 <template>
   <v-container fluid fill-height>
     <v-layout justify-center align-center>
-      <v-flex xs12 sm6 lg12>
+      <v-flex xs12 sm12 lg12>
         <v-card>
           <v-container fluid grid-list-xl>
             <v-layout row wrap>
               <v-flex v-for="item in items" v-bind="{ [`xs12`]: true }" :key="item.projectName">
                 <v-card>
-                  <!-- <v-img 
-                        max-width="400px"
-                        :src="item.imageUrl"
-                        :aspect-ratio="21/4">
-                      </v-img> -->
                   <v-card-title>
                     <div>
                       <span class="pink--text" style="font-size:25px">{{item.projectName}}</span><br>
-                      <!-- <span>{{item.description}}</span><br> -->
-                      <!-- <location-statistic> </location-statistic> -->
                     </div>
                   </v-card-title>
                   <v-card-actions>
