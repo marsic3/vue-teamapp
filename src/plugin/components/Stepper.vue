@@ -29,9 +29,9 @@
                 <v-text-field v-model="workingHours" v-on:keypress="isNumber($event)" label="How many hours did you work today?" />
               </v-flex>
              
-        <v-container>
+        <v-container grid-list-md text-xs-center>
             <v-layout justify-center>
-              <v-flex d-flex lg12 xs4 sm4 >
+              <!-- <v-flex d-flex lg12 xs12 sm12 > -->
                 <v-btn-toggle v-model="toggle_one" mandatory style="box-shadow: none;">
                   <v-btn fab outline color="white" value="superhappy">
                     <v-avatar>
@@ -54,7 +54,7 @@
                     </v-avatar>
                   </v-btn>
                 </v-btn-toggle>
-              </v-flex>
+              <!-- </v-flex> -->
             </v-layout>
         </v-container>
             </v-layout>

@@ -8,30 +8,39 @@
     </v-layout>
     <v-layout row wrap v-else>
       <v-flex xs12 sm6 lg12>
-        <v-card>
+        <!-- <v-card> -->
           <v-img class="white--text" aspect-ratio max-height="250px" :src="project.imageUrl">
           </v-img>
            <v-tabs color="primary" dark slider-color="primary">
             <v-tab ripple>
-              Statistics
+              Project Hours
             </v-tab>
             <v-tab ripple>
-              Details
+              Project Happiness
+            </v-tab>
+            <v-tab ripple>
+              Description
             </v-tab>
             <v-tab-item>
               <v-card flat>
-                <v-card-text>{{ project.projectName }}</v-card-text>
-                <location-statistic> </location-statistic>
+                <location-statistic v-bind:id="project.id"> </location-statistic>
               </v-card>
             </v-tab-item>
             <v-tab-item>
+                <!-- <v-card-text> {{ project.description }}</v-card-text> -->
+                <statistic v-bind:id="project.id"> </statistic>
+
+              <!-- </v-card> -->
+            </v-tab-item>
+             <v-tab-item>
               <v-card flat>
                 <v-card-text> {{ project.description }}</v-card-text>
-                <statistic> </statistic>
+                <!-- <statistic v-bind:id="project.id"> </statistic> -->
 
               </v-card>
             </v-tab-item>
           </v-tabs>
+          
           <v-card-title>
             
           </v-card-title>
@@ -44,7 +53,7 @@
               </v-btn>
 </template>
         </v-card-actions>
-      </v-card>
+      <!-- </v-card> -->
         
        
     </v-flex>

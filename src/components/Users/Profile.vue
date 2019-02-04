@@ -1,30 +1,8 @@
 <template>
-    <v-container fluid grid-list-md >
+    <v-container fluid grid-list-md>
         <v-layout row wrap>
-            <v-flex xs12 sm12 lg12 >
+            <v-flex xs12 sm12 lg12>
                 <div class="col-md-12 control-section">
-                    <!-- <v-card>
-                        <v-img src="https://cdn.vuetifyjs.com/images/lists/ali.png" height="200px">
-                            <v-layout column fill-height>
-                                <v-spacer></v-spacer>
-                                <v-card-title class="white--text pl-5 pt-5">
-                                    <div class="display-1 pl-5 pt-5">
-                                        User Profile
-                                    </div>
-                                </v-card-title>
-                                <v-layout row v-if="error">
-                                <v-flex xs12 sm12>
-                                    <app-alert @dismissed="onDismissed" :text="error"></app-alert>
-                                </v-flex>
-                            </v-layout>
-                            <v-layout row v-if="success">
-                                <v-flex xs12 sm12>
-                                    <app-alert-success @dismissed="onDismissed" :text="success"></app-alert-success>
-                                </v-flex>
-                            </v-layout>
-                            </v-layout>
-                        </v-img>
-                    </v-card> -->
                     <v-tabs color="primary" dark slider-color="primary">
                         <v-tab ripple>
                             Edit Profile
@@ -40,81 +18,134 @@
                                 <v-card-text>
                                     <v-form>
                                         <!-- <v-container> -->
-                                            <v-layout row wrap>
+                                        <v-layout row wrap>
     
-                                                <v-flex xs12 xs6 md6>
-                                                    <v-text-field v-model="firstName" label="First Name" hint="Set user first name" />
-                                                </v-flex>
+                                            <v-flex xs12 xs6 md6>
+                                                <v-text-field v-model="firstName" label="First Name" hint="Set user first name" />
+                                            </v-flex>
     
-                                                <v-flex xs12 xs6 md6>
-                                                    <v-text-field v-model="lastName" label="Last Name" hint="Set user last name" />
-                                                </v-flex>
+                                            <v-flex xs12 xs6 md6>
+                                                <v-text-field v-model="lastName" label="Last Name" hint="Set user last name" />
+                                            </v-flex>
     
-                                                <v-flex xs12 xs6 md6>
-                                                    <v-text-field v-model="userEmail" label="User Email" hint="Set user email" />
-                                                </v-flex>
+                                            <v-flex xs12 xs6 md6>
+                                                <v-text-field disabled v-model="userEmail" label="User Email" hint="Set user email" />
+                                            </v-flex>
     
-                                                <v-flex xs12 xs6 md6>
-                                                    <v-text-field v-model="position" label="Position" hint="Set user position" />
-                                                </v-flex>
-                                                <!-- <v-flex xs12 xs6 md1 /> -->
-                                                <!-- <v-flex xs12>
-                                  <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
-                                   <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
-                                </v-flex> -->
-                                            </v-layout>
+                                            <v-flex xs12 xs6 md6>
+                                                <v-text-field v-model="position" label="Position" hint="Set user position" />
+                                            </v-flex>
+                                            <!-- <v-flex xs12 xs6 md1 /> -->
+                                            <!-- <v-flex xs12>
+                                          <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
+                                           <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
+                                        </v-flex> -->
+                                        </v-layout>
                                         <!-- </v-container> -->
                                     </v-form>
-                                     
-                    <v-card-text xs6 > 
-                        <h3 color="blue"> Choose your color? </h3>
-                    </v-card-text>
-                                    <swatches inline swatch-size='45' v-model="color" :colors="colors" row-length="6" popover-to="left" :exceptions="['#FFFFFF']" shapes="squares" show-border></swatches>
-                                     <v-flex d-flex lg12 xs12 sm6 class="py-2">               </v-flex>    
-
-                    <v-card-text xs6 > 
-                        <h3 color="blue"> Choose your avatar? </h3>
-                    </v-card-text>
-            <v-btn-toggle v-model="toggle_one" mandatory style="box-shadow: none;">
-                <v-btn fab outline color="white">
-                  <v-avatar>
-                    <img src="https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban">
-                   </v-avatar>
-                </v-btn>
-                <v-btn fab outline color="white" >
-                  <v-avatar>
-                    <img src="https://avataaars.io/?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun">
-                   </v-avatar>
-                </v-btn>
-                <v-btn fab outline color="white" >
-                   <v-avatar>
-                    <img src='https://avataaars.io/?avatarStyle=Circle&topType=Eyepatch&accessoriesType=Blank&hairColor=BlondeGolden&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=BlazerShirt&eyeType=Hearts&eyebrowType=RaisedExcitedNatural&mouthType=Eating&skinColor=Brown'>
-                   </v-avatar>
-                </v-btn>
-                <v-btn fab outline color="white" >
-                  <v-avatar>
-                    <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=SilverGray&facialHairType=Blank&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Black">
-                   </v-avatar>
-                </v-btn>
-                <v-btn fab outline color="white" >
-                  <v-avatar>
-                    <img src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Sunglasses&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Platinum&clotheType=Overall&clotheColor=Gray01&eyeType=Wink&eyebrowType=UnibrowNatural&mouthType=Default&skinColor=Yellow">
-                   </v-avatar>
-                </v-btn>
-                <v-btn fab outline color="white" >
-                  <v-avatar>
-                    <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Prescription01&hairColor=Blonde&facialHairType=MoustacheMagnum&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Concerned&skinColor=DarkBrown">
-                   </v-avatar>
-                </v-btn>
-                <v-btn fab outline color="white" >
-                  <v-avatar>
-                    <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBob&accessoriesType=Blank&hairColor=Red&facialHairType=Blank&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=Default&eyebrowType=UpDown&mouthType=Twinkle&skinColor=Tanned">
-                   </v-avatar>
-                </v-btn>
-             </v-btn-toggle>
                                 </v-card-text>
-                                
     
+    
+                                <v-card-title xs6>
+                                    <h3 color="blue"> Choose your color? </h3>
+                                </v-card-title>
+                                <swatches inline swatch-size='45' v-model="color" :colors="colors" row-length="6" popover-to="left" :exceptions="['#FFFFFF']" shapes="squares" show-border></swatches>
+                                <v-flex d-flex lg12 xs12 sm6 class="py-2"> </v-flex>
+    
+                                <v-card-text xs6>
+                                    <h3 color="blue"> Choose your avatar? </h3>
+                                </v-card-text>
+                                <!-- <v-container grid-list-md text-xs-center>
+                                    <v-layout row wrap>
+                                        <v-flex xs12> -->
+                                            <v-btn-toggle v-model="toggle_one" mandatory style="box-shadow: none;">
+                                                        <v-layout row wrap>
+
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src="https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban">
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src="https://avataaars.io/?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun">
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=Eyepatch&accessoriesType=Blank&hairColor=BlondeGolden&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=BlazerShirt&eyeType=Hearts&eyebrowType=RaisedExcitedNatural&mouthType=Eating&skinColor=Brown'>
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=SilverGray&facialHairType=Blank&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Black">
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src="https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Sunglasses&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Platinum&clotheType=Overall&clotheColor=Gray01&eyeType=Wink&eyebrowType=UnibrowNatural&mouthType=Default&skinColor=Yellow">
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Prescription01&hairColor=Blonde&facialHairType=MoustacheMagnum&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Concerned&skinColor=DarkBrown">
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBob&accessoriesType=Blank&hairColor=Red&facialHairType=Blank&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=Default&eyebrowType=UpDown&mouthType=Twinkle&skinColor=Tanned">
+                                                    </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=WinterHat3&accessoriesType=Sunglasses&hatColor=Gray02&facialHairType=MoustacheFancy&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Close&eyebrowType=UpDown&mouthType=ScreamOpen&skinColor=Brown'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=WinterHat2&accessoriesType=Round&hatColor=White&facialHairType=MoustacheMagnum&facialHairColor=Platinum&clotheType=Overall&clotheColor=PastelYellow&graphicType=Cumbia&eyeType=WinkWacky&eyebrowType=Angry&mouthType=Tongue&skinColor=Brown'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Prescription01&hatColor=Black&hairColor=BrownDark&facialHairType=BeardMagestic&facialHairColor=BlondeGolden&clotheType=BlazerShirt&clotheColor=Gray02&eyeType=WinkWacky&eyebrowType=SadConcerned&mouthType=Eating&skinColor=Black'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Wayfarers&hatColor=Black&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=BlazerSweater&clotheColor=PastelRed&eyeType=Close&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Yellow'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=WinterHat3&accessoriesType=Sunglasses&hatColor=PastelOrange&hairColor=Platinum&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=ShirtCrewNeck&clotheColor=White&eyeType=WinkWacky&eyebrowType=Default&mouthType=Serious&skinColor=DarkBrown'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Kurt&hairColor=PastelPink&facialHairType=BeardMedium&facialHairColor=Red&clotheType=Hoodie&clotheColor=Blue02&eyeType=Happy&eyebrowType=FlatNatural&mouthType=Twinkle&skinColor=Light'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraightStrand&accessoriesType=Sunglasses&hairColor=PastelPink&facialHairType=MoustacheMagnum&facialHairColor=BlondeGolden&clotheType=GraphicShirt&clotheColor=Blue01&graphicType=Diamond&eyeType=Cry&eyebrowType=UpDown&mouthType=Vomit&skinColor=Black'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Prescription01&hairColor=Red&facialHairType=BeardMagestic&facialHairColor=Blonde&clotheType=Overall&clotheColor=Blue02&eyeType=Surprised&eyebrowType=SadConcerned&mouthType=Serious&skinColor=DarkBrown'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                <v-btn fab outline color="white">
+                                                    <v-avatar>
+                                                        <img src='https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Prescription01&hairColor=Auburn&facialHairType=MoustacheFancy&facialHairColor=Red&clotheType=BlazerShirt&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Serious&skinColor=Light'
+                                                        /> </v-avatar>
+                                                </v-btn>
+                                                        </v-layout>
+                                            </v-btn-toggle>
+                                        <!-- </v-flex>
+                                    </v-layout>
+                                </v-container> -->
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
                                     <v-btn color="primary" flat @click="setUpSettings">
@@ -146,14 +177,14 @@
                                                     />
                                                 </v-flex>
                                                 <!-- <v-flex xs12>
-                                  <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
-                                   <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
-                                </v-flex> -->
+                                          <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
+                                           <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
+                                        </v-flex> -->
                                             </v-layout>
                                         </v-container>
                                     </v-form>
                                     <!-- </v-card-text>
-                    <v-card-text xs6 > -->
+                            <v-card-text xs6 > -->
                                 </v-card-text>
     
                                 <v-card-actions>
@@ -181,15 +212,25 @@
         data() {
             return {
                 toggle_one: -1,
-                avatars : [
-  'https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban',
-  'https://avataaars.io/?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun',
-  'https://avataaars.io/?avatarStyle=Circle&topType=Eyepatch&accessoriesType=Blank&hairColor=BlondeGolden&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=BlazerShirt&eyeType=Hearts&eyebrowType=RaisedExcitedNatural&mouthType=Eating&skinColor=Brown',
-  'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=SilverGray&facialHairType=Blank&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Black',
-  'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Sunglasses&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Platinum&clotheType=Overall&clotheColor=Gray01&eyeType=Wink&eyebrowType=UnibrowNatural&mouthType=Default&skinColor=Yellow',
-  'https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Prescription01&hairColor=Blonde&facialHairType=MoustacheMagnum&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Concerned&skinColor=DarkBrown',
-  'https://avataaars.io/?avatarStyle=Circle&topType=LongHairBob&accessoriesType=Blank&hairColor=Red&facialHairType=Blank&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=Default&eyebrowType=UpDown&mouthType=Twinkle&skinColor=Tanned'
-],
+                avatars: [
+                    'https://avataaars.io/?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban',
+                    'https://avataaars.io/?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=Eyepatch&accessoriesType=Blank&hairColor=BlondeGolden&facialHairType=BeardMedium&facialHairColor=BrownDark&clotheType=BlazerShirt&eyeType=Hearts&eyebrowType=RaisedExcitedNatural&mouthType=Eating&skinColor=Brown',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Prescription01&hairColor=SilverGray&facialHairType=Blank&facialHairColor=BrownDark&clotheType=ShirtScoopNeck&clotheColor=Blue01&eyeType=Hearts&eyebrowType=DefaultNatural&mouthType=Default&skinColor=Black',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Sunglasses&hairColor=Black&facialHairType=BeardMedium&facialHairColor=Platinum&clotheType=Overall&clotheColor=Gray01&eyeType=Wink&eyebrowType=UnibrowNatural&mouthType=Default&skinColor=Yellow',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairCurvy&accessoriesType=Prescription01&hairColor=Blonde&facialHairType=MoustacheMagnum&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Concerned&skinColor=DarkBrown',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairBob&accessoriesType=Blank&hairColor=Red&facialHairType=Blank&facialHairColor=BrownDark&clotheType=CollarSweater&clotheColor=Blue03&eyeType=Default&eyebrowType=UpDown&mouthType=Twinkle&skinColor=Tanned',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=WinterHat3&accessoriesType=Sunglasses&hatColor=Gray02&facialHairType=MoustacheFancy&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Close&eyebrowType=UpDown&mouthType=ScreamOpen&skinColor=Brown',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=WinterHat2&accessoriesType=Round&hatColor=White&facialHairType=MoustacheMagnum&facialHairColor=Platinum&clotheType=Overall&clotheColor=PastelYellow&graphicType=Cumbia&eyeType=WinkWacky&eyebrowType=Angry&mouthType=Tongue&skinColor=Brown',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Prescription01&hatColor=Black&hairColor=BrownDark&facialHairType=BeardMagestic&facialHairColor=BlondeGolden&clotheType=BlazerShirt&clotheColor=Gray02&eyeType=WinkWacky&eyebrowType=SadConcerned&mouthType=Eating&skinColor=Black',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairFroBand&accessoriesType=Wayfarers&hatColor=Black&hairColor=SilverGray&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=BlazerSweater&clotheColor=PastelRed&eyeType=Close&eyebrowType=DefaultNatural&mouthType=Smile&skinColor=Yellow',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=WinterHat3&accessoriesType=Sunglasses&hatColor=PastelOrange&hairColor=Platinum&facialHairType=MoustacheFancy&facialHairColor=Platinum&clotheType=ShirtCrewNeck&clotheColor=White&eyeType=WinkWacky&eyebrowType=Default&mouthType=Serious&skinColor=DarkBrown',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortRound&accessoriesType=Kurt&hairColor=PastelPink&facialHairType=BeardMedium&facialHairColor=Red&clotheType=Hoodie&clotheColor=Blue02&eyeType=Happy&eyebrowType=FlatNatural&mouthType=Twinkle&skinColor=Light',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraightStrand&accessoriesType=Sunglasses&hairColor=PastelPink&facialHairType=MoustacheMagnum&facialHairColor=BlondeGolden&clotheType=GraphicShirt&clotheColor=Blue01&graphicType=Diamond&eyeType=Cry&eyebrowType=UpDown&mouthType=Vomit&skinColor=Black',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairDreads02&accessoriesType=Prescription01&hairColor=Red&facialHairType=BeardMagestic&facialHairColor=Blonde&clotheType=Overall&clotheColor=Blue02&eyeType=Surprised&eyebrowType=SadConcerned&mouthType=Serious&skinColor=DarkBrown',
+                    'https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Prescription01&hairColor=Auburn&facialHairType=MoustacheFancy&facialHairColor=Red&clotheType=BlazerShirt&eyeType=WinkWacky&eyebrowType=SadConcernedNatural&mouthType=Serious&skinColor=Light'
+
+                ],
                 color: null,
                 colors: ['#D81B60', '#8E24AA', '#5E35B1', '#3949AB', '#1E88E5', '#039BE5', '#00ACC1', '#00897B', '#43A047', '#7CB342', '#C0CA33', '#FFEE58', '#FFA726', '#FF7043', '#8D6E63', '#78909C', '#757575', '#000000'],
                 rating: null,

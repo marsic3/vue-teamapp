@@ -1,5 +1,6 @@
 <template>
   <v-data-table
+    width="100%"
     class="table"
     :headers="headers"
     :items="empolyees"

@@ -20,10 +20,10 @@
         <widget icon="watch_later" :title="loadedworkingHours" subTitle= 'Total working hours' supTitle="Bounce Rate" color="#D4E157"/>
       </v-flex>
       <v-flex d-flex lg6 sm6 xs12>
-        <widget icon="watch_later" :title="loadedworkingHours" subTitle= 'Total working hours' supTitle="Bounce Rate" color="#78909C"/>
+        <widget icon="laptop" :title="loadedProjects" subTitle= 'Most popular project'  color="#78909C"/>
       </v-flex>
       <v-flex d-flex lg6 sm6 xs12>
-        <widget icon="watch_later" :title="loadedworkingHours/projects" subTitle= 'Average hours per project' supTitle="Bounce Rate" color="#D4E157"/>
+        <widget icon="timelapse" :title="loadedworkingHours/projects" subTitle= 'Average hours per project' color="#D4E157"/>
       </v-flex>
       <!-- DataTable&TimeLine Starts -->
 
@@ -70,6 +70,9 @@ export default {
       },
       projects(){
         return this.$store.getters.loadedProjects.length
+      },
+      loadedProjects(){
+        return this.$store.getters.loadedProjects[0].projectName
       },
       loadedworkingHours(){
       let lista = this.$store.getters.loadedTimeSheet

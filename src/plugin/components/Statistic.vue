@@ -37,7 +37,7 @@
         let okay=0
         let bad=0
         var lista = this.$store.getters.loadedTimeSheet
-  
+        // console.log(lista+' lista')
         for (let i = 0; i < lista.length; i++) {
           var expr = lista[i].happiness;
           if (lista[i].project === this.id) {

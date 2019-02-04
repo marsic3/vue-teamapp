@@ -24,6 +24,28 @@
                         </v-flex>
                         <v-flex xs12 align-center justify-space-between>
                             <v-layout align-center>
+                                <v-text-field
+                                prepend-icon="timeline"
+                                name="status"
+                                id="status"
+                                v-model="editStatus"
+                                required
+                                ></v-text-field>
+                            </v-layout>
+                        </v-flex>
+                         <v-flex xs12 align-center justify-space-between>
+                            <v-layout align-center>
+                                <v-text-field
+                                prepend-icon="person"
+                                name="assign"
+                                id="assign"
+                                v-model="editAssign"
+                                required
+                                ></v-text-field>
+                            </v-layout>
+                        </v-flex>
+                        <v-flex xs12 align-center justify-space-between>
+                            <v-layout align-center>
                                <v-textarea
                             prepend-icon="notes"
                             id="description"
@@ -55,6 +77,8 @@
       return {
         editDialog: false,
         editedName: this.project.projectName,
+        editStatus: this.project.status,
+        editAssign: this.project.email,
         editedDescription: this.project.description
       }
     },
@@ -67,7 +91,9 @@
         this.$store.dispatch('updateProjectData', {
           id: this.project.id,
           projectName: this.editedName,
-          description: this.editedDescription
+          description: this.editedDescription,
+          email: this.editAssignm,
+          status: this.editStatus
         })
       }
     }

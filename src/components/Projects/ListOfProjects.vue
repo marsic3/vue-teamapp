@@ -23,12 +23,15 @@
                     <v-spacer></v-spacer>
                     <v-btn flat color="primary" :to="'/projects/'+item.id" @click="onDetail(item.id)">Details</v-btn>
                   </v-card-actions>
-                  <v-tabs color="primary" dark slider-color="primary">
-                    <v-tab ripple>
-                      Basic Info
-                    </v-tab>
+                  <v-tabs 
+                    color="primary" 
+                    dark 
+                    slider-color="primary">
                     <v-tab ripple>
                       Statistics
+                    </v-tab>
+                    <v-tab ripple>
+                      Basic Info
                     </v-tab>
                     <v-tab ripple  v-on:click="sendId(item.id)">
                       Project Happiness
@@ -39,6 +42,14 @@
                     <v-tab ripple>
                       Description
                     </v-tab>
+                     <v-tab-item>
+                      <v-card flat>
+                        <!-- <v-card-text>{{ item.projectName }}</v-card-text> -->
+                        <div>
+                         <location-statistic v-bind:id="item.id"></location-statistic>
+                        </div>
+                      </v-card>
+                    </v-tab-item>
                     <v-tab-item>
                       <v-card flat>
   
@@ -93,14 +104,7 @@
                         </v-list>
                       </v-card>
                     </v-tab-item>
-                    <v-tab-item>
-                      <v-card flat>
-                        <v-card-text>{{ item.projectName }}</v-card-text>
-                        <div>
-                         <location-statistic v-bind:id="item.id"></location-statistic>
-                        </div>
-                      </v-card>
-                    </v-tab-item>
+                
                     <v-tab-item>
                       <v-card flat>
                         <statistic v-bind:id="item.id"> </statistic>

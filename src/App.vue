@@ -96,13 +96,13 @@
      
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-xs-only">
-      <v-btn 
+      <v-btn
         flat
         v-for="item in menuItems"
         :key="item.icon"
         :to="item.link"
         >
-        <v-icon>{{item.icon}} </v-icon>
+        <v-icon >{{item.icon}} </v-icon>
         <v-list-tile-title style="padding-left:5px">
                 {{ item.text }}
               </v-list-tile-title>
@@ -189,8 +189,8 @@
         let items = []
          if (this.userIsAuth && this.user.admin) {
           items = [{
-              icon: 'home',
-              text: 'Home',
+              icon: 'dashboard',
+              text: 'Dashboard',
               link: '/home'
             },
             {

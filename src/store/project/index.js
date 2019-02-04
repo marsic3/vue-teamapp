@@ -23,6 +23,12 @@ export default ({
             if (payload.date) {
                 project.date = payload.date
             }
+            if (payload.date) {
+                project.date = payload.date
+            }
+            if (payload.status) {
+                project.status = payload.status
+            }
         },
         createProject(state, payload) {
             state.loadedProjects.push(payload)
@@ -83,6 +89,7 @@ export default ({
                 description: payload.description,
                 date: payload.date,
                 id: payload.id,
+                status: payload.status,
                 creatorId: getters.user.id
             }
             let imageUrl
@@ -131,6 +138,9 @@ export default ({
             }
             if (payload.description) {
                 updateObj.description = payload.description
+            }
+            if (payload.status) {
+                updateObj.status = payload.status
             }
 
             firebase.firestore().collection("projects").doc("p" + payload.id).update(updateObj)
