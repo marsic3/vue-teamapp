@@ -14,7 +14,8 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
-  
+
+
       <v-list dense>
         <template v-for="item in items">
             <v-layout

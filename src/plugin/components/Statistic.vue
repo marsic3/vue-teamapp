@@ -1,9 +1,9 @@
 <template>
-  <v-card class="card">
+  <!-- <v-card class="card"> -->
     <v-card-text class="pa-2">
       <pie-chart :data="getProjectData" legend="top" :donut="true"></pie-chart>
     </v-card-text>
-  </v-card>
+  <!-- </v-card> -->
 </template>
 
 <script>

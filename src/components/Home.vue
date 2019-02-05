@@ -2,11 +2,8 @@
   <v-container fluid fill-height>
   <v-layout justify-center align-center>
   <v-flex  xs6 sm12 lg12 >
-
   <v-container fluid grid-list-xl align-content-center>
     <v-layout row wrap >
-      <!-- Widgets-->
-
       <v-flex d-flex lg3 sm6 xs12>
         <widget icon="people" :title='users' subTitle= 'Employees' supTitle="Today's Employees" color="#78909C"/>
       </v-flex>
@@ -37,7 +34,7 @@
       </v-flex>
       <v-flex d-flex lg12 sm12 xs12>
          <data-table> </data-table>
-      </v-flex> 
+      </v-flex>  
       
     </v-layout>
   </v-container>
@@ -56,8 +53,6 @@ export default {
       happy:[],
       okay:[],
       bad:[],
-
-
     }
   },
   mounted () {
@@ -79,7 +74,6 @@ export default {
       for (let i = 0; i < lista.length; i++) {
           this.sum += Number(lista[i].workingHours)
           // console.log(lista[i].workingHours)
-
         }
         return this.sum
       },
@@ -110,8 +104,6 @@ export default {
           if(this.okay.length>=this.bad.length){
             return this.okay[0]
           }
-
-
       }
   }
 }

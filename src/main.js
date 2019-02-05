@@ -16,6 +16,7 @@ import "vue-swatches/dist/vue-swatches.min.css"
 import Widget from '../src/plugin/components/Widget';
 import SocialWidget from '../src/plugin/components/SocialWidget';
 import DataTable from '../src/plugin/components/DataTable';
+import Carousel from '../src/plugin/components/Carousel';
 import TimeLine from '../src/plugin/components/TimeLine';
 import UserTreeView from '../src/plugin/components/UserTreeView';
 import Stepper from '../src/plugin/components/Stepper';
@@ -52,7 +53,6 @@ Vue.use(VueChartkick, { adapter: Chart });
 // Vue.component("menu-icon", MenuIcon)
 Vue.config.productionTip = false
 // Vue.component('font-awesome-icon', FontAwesomeIcon)
-Vue.component('apexchart', ApexCharts);
 Vue.component('swatches', swatches);
 Vue.component('app-alert', Alert)
 Vue.component('app-alert-success', AlertSuccess)
@@ -66,6 +66,8 @@ Vue.component('stepper', Stepper);
 Vue.component('p-input', PrettyInput);
 Vue.component('p-check', PrettyCheck);
 Vue.component('p-radio', PrettyRadio);
+
+Vue.component('carousel', Carousel);
 
 Vue.component('location-statistic', LocationStatistic);
 Vue.component('statistic', Statistic);

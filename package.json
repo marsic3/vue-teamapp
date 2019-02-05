@@ -40,6 +40,7 @@
     "font-awesome": "^4.7.0",
     "frappe-charts": "^1.1.0",
     "jquery": "^3.3.1",
+    "moment": "^2.24.0",
     "nodemailer": "^5.1.1",
     "v-chartist": "^0.1.6",
     "viser-ng": "^2.4.4",

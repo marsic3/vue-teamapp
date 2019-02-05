@@ -27,9 +27,7 @@
               </v-card>
             </v-tab-item>
             <v-tab-item>
-              <v-card-text> {{ project.description }}</v-card-text>
               <statistic v-bind:id="project.id"> </statistic>
-              <!-- </v-card> -->
             </v-tab-item>
             <v-tab-item>
               <v-card flat>
@@ -44,7 +42,7 @@
             <v-spacer></v-spacer>
             <template v-if="userIsCreator">
                 <app-edit-project-dialog :project="project">  </app-edit-project-dialog>
-                 <v-btn fab accent color="red" @click="deleteProject(project.id)">
+                 <v-btn fab accent color="primary" @click="deleteProject(project.id)">
                   <v-icon>delete</v-icon>
                 </v-btn>
             </template>

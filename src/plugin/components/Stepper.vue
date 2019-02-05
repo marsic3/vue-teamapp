@@ -11,12 +11,10 @@
           <app-alert-success @dismissed="onDismissed" :text="success"></app-alert-success>
         </v-flex>
       </v-layout>
-  
       <v-card flat hover>
         <v-card-title primary-title>
           <div>
-            <h3 class="headline grey--text">How are you satisfied with your work today?</h3>
-            <!-- <div>Nostrud exercitation commodo consequat.<br>Southern Highlands of New South Wales, ...</div> -->
+            <h3 class="headline grey--text">How satisfied are you  with your work today?</h3>
           </div>
         </v-card-title>
         <v-form>
@@ -27,8 +25,7 @@
               </v-flex>
               <v-flex d-flex lg6>
                 <v-text-field v-model="workingHours" v-on:keypress="isNumber($event)" label="How many hours did you work today?" />
-              </v-flex>
-             
+              </v-flex> 
         <v-container grid-list-md text-xs-center>
             <v-layout justify-center>
               <!-- <v-flex d-flex lg12 xs12 sm12 > -->

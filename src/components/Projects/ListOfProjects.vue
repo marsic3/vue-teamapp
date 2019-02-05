@@ -21,7 +21,7 @@
                     dark 
                     slider-color="primary">
                     <v-tab ripple>
-                      Statistics
+                      Working Hours
                     </v-tab>
                     <v-tab ripple>
                       Basic Info
@@ -87,7 +87,6 @@
                             <v-list-tile-action>
                               <v-icon color="pink">trending_up</v-icon>
                             </v-list-tile-action>
-  
                             <v-list-tile-content>
                               <v-list-tile-title>{{item.status}}</v-list-tile-title>
                               <v-list-tile-sub-title>Status</v-list-tile-sub-title>
@@ -141,18 +140,22 @@
                       <v-text-field prepend-icon="mail" placeholder="Assign on" name="email" id="email" v-model="email" required></v-text-field>
                     </v-flex>
                     <v-flex xs12>
-                      <v-textarea prepend-icon="trending_up" placeholder="Status" id="status" v-model="status"></v-textarea>
+                       <v-select prepend-icon="trending_up" v-model="status" :items="projectStatus" label="Choose a Project status" />
                     </v-flex>
+                    <!-- <v-flex xs12>
+                      <v-textarea prepend-icon="trending_up" placeholder="Status" id="status" v-model="status"></v-textarea>
+                    </v-flex> -->
                     <v-flex xs12>
                       <v-textarea prepend-icon="notes" placeholder="Description" id="description" v-model="description"></v-textarea>
                     </v-flex>
   
                     <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+                     <!-- <v-text-field label="Select Image" prepend-icon='attach_file'></v-text-field> -->
                       <v-btn raised class="primary" @click="onPickFile">Upload image</v-btn>
                       <input type="file" ref="fileInput" style="display:none" accept="image/*" @change="onFilePicked">
                     </v-flex>
                     <v-layout row>
-                      <v-flex xs12 sm6 offset-sm3>
+                      <v-flex xs12 sm12 offset-sm5>
                         <img :src="imageUrl" height="130px">
                       </v-flex>
                     </v-layout>
@@ -191,6 +194,7 @@
         email: '',
         description: '',
         status: '',
+        projectStatus: ['In Planning', 'Pending', 'Ongoing', 'Completed', 'Cancelled'],
         imageUrl: '',
         image: null,
       }
