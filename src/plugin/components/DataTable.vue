@@ -4,7 +4,7 @@
     :headers="headers"
     row
     :items="empolyees"
-    :rows-per-page-items="[5,10, 25]">
+    :rows-per-page-items="[25,10,5]">
     <template slot="items" slot-scope="props">
       
       <td class="text-xs-left">

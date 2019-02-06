@@ -1,7 +1,7 @@
 <template>
   <v-layout justify-center >
     <v-flex xs12 sm12 md12>
-      <v-layout row v-if="error">
+      <!-- <v-layout row v-if="error">
         <v-flex xs12 sm12>
           <app-alert @dismissed="onDismissed" :text="error"></app-alert>
         </v-flex>
@@ -10,7 +10,22 @@
         <v-flex xs12 sm12>
           <app-alert-success @dismissed="onDismissed" :text="success"></app-alert-success>
         </v-flex>
-      </v-layout>
+      </v-layout> -->
+        <v-snackbar
+     v-model="snackbar"
+      :timeout="timeout"
+      :top="'top'"
+      :vertical="mode === 'vertical'"
+    >
+      {{ error }}
+      <v-btn
+        color="pink"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
       <v-card flat hover>
         <v-card-title primary-title>
           <div>
@@ -71,6 +86,9 @@
   export default {
     data() {
       return {
+        timeout: 3000,
+        snackbar: false,
+        error: null,
         text: 'center',
         icon: 'justify',
         toggle_one: 0,
@@ -81,7 +99,6 @@
         items: [],
         checkbox: false,
         // date: new Date().toISOString().substr(0, 10),
-        error: null,
         success: null
       }
     },
@@ -89,14 +106,17 @@
     methods: {
       submit() {
         if (this.select === null) {
+          this.snackbar = true
           this.error = 'Please choose the project'
           return
         }
         if (this.workingHours === null) {
+          this.snackbar = true
           this.error = 'Please add the working hours'
           return
         }
         if (this.toggle_one === 0) {
+          this.snackbar = true
           this.error = 'Please select the happiness'
           return
         }
@@ -111,10 +131,10 @@
           happiness: this.toggle_one,
           workingHours: this.workingHours,
         }
-        this.$store.dispatch('createTimeSheet', payload)
-        this.error = null
-        this.success = 'Your feedback has been successefuly added'
         this.toggle_one = 0
+        this.$store.dispatch('createTimeSheet', payload)
+        this.error = 'Your working happiness has been added'
+        this.snackbar = true
         this.select = null
         this.workingHours = null
   

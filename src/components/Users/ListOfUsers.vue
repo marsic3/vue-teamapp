@@ -44,7 +44,7 @@
         </v-card>
       </v-dialog>
     </v-toolbar>
-    <v-data-table :headers="headers" row :items="users" class="elevation-1" :rows-per-page-items="[5, 10, 25]">
+    <v-data-table :headers="headers" row :items="users" class="elevation-1" :rows-per-page-items="[25, 10, 5]">
   
       >
       <template slot="items" slot-scope="props">

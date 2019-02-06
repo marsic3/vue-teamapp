@@ -71,7 +71,7 @@ export default {
           console.log("Document successfully deleted!");
           commit("setLoading", false);
 
-          location.reload();
+          this.$router.push({ name: 'listofusers' });
         })
         .catch(function(error) {
           commit("setLoading", false);
@@ -115,7 +115,7 @@ export default {
           console.log(payload.key + "===>" + updateObj);
           commit("updateEmployee", payload);
           console.log("document uspesno updatovan");
-          location.reload();
+          this.$router.push({ name: 'profile' });
           commit("setLoading", false);
         })
         .catch(error => {
@@ -318,7 +318,7 @@ export default {
     },
     logout({ commit }) {
       firebase.auth().signOut();
-      window.location.href = "/signin";
+      this.$router.push({ name: 'signin' });
       commit("setUser", null);
     },
     updatePassword({ commit }, payload) {
@@ -330,7 +330,7 @@ export default {
           // Update successful.
           firebase.auth().signOut();
           commit("setUser", null);
-          window.location.href = "/signin";
+          this.$router.push({ name: 'signin' });
         })
         .catch(function(error) {
           // An error happened.

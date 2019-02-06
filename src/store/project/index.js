@@ -47,7 +47,7 @@ export default ({
                 commit('deleteProject', payload)
                 console.log("Document successfully deleted!");
                 commit('setLoading', false)
-                location.reload()
+                this.$router.push({ name: 'projects' });
             }).catch(function(error) {
                 commit('setLoading', false)
                 console.error("Error removing document: ", error);

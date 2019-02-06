@@ -1,6 +1,11 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer :clipped="$vuetify.breakpoint.lgAndUp" v-model="drawer" fixed app v-if="userIsAuth">
+    <v-navigation-drawer 
+    :clipped="$vuetify.breakpoint.lgAndUp" 
+    v-model="drawer" 
+    fixed 
+    app 
+    v-if="userIsAuth">
       <v-toolbar flat class="transparent">
         <v-list class="pa-0">
           <v-list-tile avatar>
@@ -128,13 +133,16 @@
       </v-btn> -->
       </v-toolbar-items>
     </v-toolbar>
+
     <v-content>
+
       <!-- <v-container fluid fill-height>
         <v-layout justify-center align-center> -->
     <main>
       <router-view>
       </router-view>
     </main>
+
     <!-- </v-layout> -->
       <!-- </v-container> -->
        <!-- <v-footer
@@ -169,6 +177,7 @@
     </v-card>
   </v-footer> -->
     </v-content>
+
   </v-app>
 </template>
 
