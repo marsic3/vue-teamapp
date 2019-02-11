@@ -168,16 +168,6 @@
       users() {
         return this.$store.getters.loadedEmployees
       },
-
-      // userIsAuth() {
-      //   return this.$store.getters.user !== null && this.$store.getters.user !== 'undefiend'
-      // },
-      // userIsCreator() {
-      //   if (!this.userIsAuth) {
-      //     return false
-      //   }
-      //   return this.$store.getters.user.id === this.project.creatorId
-      // },
     },
   
   
@@ -231,7 +221,6 @@
   
           }
           this.$store.dispatch('updateEmployeeData', payload)
-          console.log(payload.admin+' il si admin il nisi')
         } else {
   
           // id.length >= 9; // false
@@ -252,10 +241,6 @@
         }
         this.close()
       },
-      //    onCreateProject(){
-  
-      //   },
-  
     }
   }
 </script>

@@ -1,21 +1,11 @@
 <template>
   <v-layout justify-center >
     <v-flex xs12 sm12 md12>
-      <!-- <v-layout row v-if="error">
-        <v-flex xs12 sm12>
-          <app-alert @dismissed="onDismissed" :text="error"></app-alert>
-        </v-flex>
-      </v-layout>
-      <v-layout row v-if="success">
-        <v-flex xs12 sm12>
-          <app-alert-success @dismissed="onDismissed" :text="success"></app-alert-success>
-        </v-flex>
-      </v-layout> -->
         <v-snackbar
      v-model="snackbar"
       :timeout="timeout"
       :top="'top'"
-      :vertical="mode === 'vertical'"
+      
     >
       {{ error }}
       <v-btn
@@ -32,7 +22,10 @@
             <h3 class="headline grey--text">How satisfied are you  with your work today?</h3>
           </div>
         </v-card-title>
-        <v-form>
+        <v-form 
+         ref="form"
+         lazy-validation
+>
           <v-container>
             <v-layout flex wrap row>
               <v-flex d-flex lg6>
@@ -43,8 +36,7 @@
               </v-flex> 
         <v-container grid-list-md text-xs-center>
             <v-layout justify-center>
-              <!-- <v-flex d-flex lg12 xs12 sm12 > -->
-                <v-btn-toggle v-model="toggle_one" mandatory style="box-shadow: none;">
+                <v-btn-toggle v-model="toggle_one"  mandatory style="box-shadow: none;">
                   <v-btn fab outline color="white" value="superhappy">
                     <v-avatar>
                       <img src="https://i.imgur.com/Qco80q1.png">
@@ -66,7 +58,6 @@
                     </v-avatar>
                   </v-btn>
                 </v-btn-toggle>
-              <!-- </v-flex> -->
             </v-layout>
         </v-container>
             </v-layout>
@@ -97,13 +88,15 @@
         email: '',
         select: null,
         items: [],
-        checkbox: false,
-        // date: new Date().toISOString().substr(0, 10),
         success: null
       }
     },
   
     methods: {
+      reset () {
+        this.toggle_one = 0
+        this.$refs.form.reset()
+      },
       submit() {
         if (this.select === null) {
           this.snackbar = true
@@ -131,13 +124,10 @@
           happiness: this.toggle_one,
           workingHours: this.workingHours,
         }
-        this.toggle_one = 0
         this.$store.dispatch('createTimeSheet', payload)
         this.error = 'Your working happiness has been added'
         this.snackbar = true
-        this.select = null
         this.workingHours = null
-  
       },
       isNumber: function(evt) {
         evt = (evt) ? evt : window.event;

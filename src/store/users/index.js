@@ -1,6 +1,5 @@
 import * as firebase from "firebase";
 import "firebase/firestore/dist/index.cjs";
-
 export default {
   state: {
     loadedEmployees: [],
@@ -14,19 +13,19 @@ export default {
       state.user = payload;
     },
     setLoadedEmployees(state, payload) {
-      console.log("setovao" + payload);
+      // console.log("setovao" + payload);
       state.loadedEmployees = payload;
     },
     setUserData(state, payload) {
-      console.log("setovao" + payload);
+      // console.log("setovao" + payload);
       state.userData = payload;
     },
     setColor(state, payload) {
-      console.log("setovao color ::" + payload);
+      // console.log("setovao color ::" + payload);
       state.color = payload;
     },
     setUserId(state, payload) {
-      console.log("setovao user ID ::" + payload);
+      // console.log("setovao user ID ::" + payload);
       state.userId = payload;
     },
     createEmployee(state, payload) {
@@ -66,14 +65,12 @@ export default {
         .collection("user")
         .doc(payload.key)
         .delete()
-        .then(function() {
+        .then(function () {
           commit("deleteEmployee", payload);
           console.log("Document successfully deleted!");
           commit("setLoading", false);
-
-          this.$router.push({ name: 'listofusers' });
         })
-        .catch(function(error) {
+        .catch(function (error) {
           commit("setLoading", false);
           console.error("Error removing document: ", error);
         });
@@ -85,7 +82,6 @@ export default {
       if (payload.email) {
         updateObj.email = payload.email;
         updateObj.admin = payload.admin;
-
       }
       if (payload.firstName) {
         updateObj.firstName = payload.firstName;
@@ -102,9 +98,7 @@ export default {
       if (payload.avatar) {
         updateObj.avatar = payload.avatar;
       }
-    //   if (payload.admin) {
-    //   }
-      console.log(updateObj)
+      // console.log(updateObj);
 
       firebase
         .firestore()
@@ -112,10 +106,10 @@ export default {
         .doc(payload.key)
         .update(updateObj)
         .then(() => {
-          console.log(payload.key + "===>" + updateObj);
+          // console.log(payload.key + "===>" + updateObj);
           commit("updateEmployee", payload);
-          console.log("document uspesno updatovan");
-          this.$router.push({ name: 'profile' });
+          commit("setUserData", payload);
+          // console.log("document uspesno updatovan");
           commit("setLoading", false);
         })
         .catch(error => {
@@ -143,52 +137,49 @@ export default {
         .doc(payload.key)
         .set(employee)
         .then(() => {
-          console.log("Document written with ID: ", payload.key);
+          // console.log("Document written with ID: ", payload.key);
         })
         .catch(error => {
           commit("setLoading", false);
           console.log(error);
         });
-        var config = {
+
+      var config = {
         apiKey: "AIzaSyClFE1K9xsErM6RDCVM7LRnYFQIkndpJDw",
         authDomain: "teamapp-63a91.firebaseapp.com",
         databaseURL: "https://teamapp-63a91.firebaseio.com"
-        };
-        var secondaryApp = firebase.initializeApp(config, "Secondary");
-        secondaryApp.auth().createUserWithEmailAndPassword(payload.email, "112233")
-        .then(function(firebaseUser) {
-            firebase
+      };
+      var secondaryApp = firebase.initializeApp(config, "Secondary");
+      secondaryApp
+        .auth()
+        .createUserWithEmailAndPassword(payload.email, "112233")
+        .then(function (firebaseUser) {
+          firebase
             .auth()
             .sendPasswordResetEmail(payload.email)
-            .then(function() {
+            .then(function () {
               // Email sent.
-              console.log('email poslat!!!')
+              // console.log("email poslat!!!");
             })
-            .catch(function(error) {
-                console.log('email  nie poslat!!!'+error,payload.email)
-            })
-        console.log("User " + firebaseUser.uid + " created successfully!");
-        commit('createEmployee',employee)
-        secondaryApp.auth().signOut();
-});
-        
-        // firebase
-        //     .auth()
-        //     .createUserAndRetrieveDataWithEmailAndPassword(payload.email, "112233");
-        //     // commit("createEmployee", employee);
-        //     commit("setLoading", false);
+            .catch(function (error) {
+              // console.log("email  nie poslat!!!" + error, payload.email);
+            });
+          // console.log("User " + firebaseUser.uid + " created successfully!");
+          commit("createEmployee", employee);
+          secondaryApp.auth().signOut();
+        });
     },
     loadUserInfo({ commit }, payload) {
       commit("setLoading", true);
-      console.log("email", "==", payload.email);
+      // console.log("email", "==", payload.email);
       firebase
         .firestore()
         .collection("user")
         .where("email", "==", payload.email)
         .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            console.log(doc.id, " => ", doc.data());
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            // console.log(doc.id, " => ", doc.data());
             commit("setUserData", doc.data());
           });
           commit("setLoading", false);
@@ -199,16 +190,16 @@ export default {
         });
     },
     loadedEmployee({ commit }) {
-      console.log(" ===========> ");
+      // console.log(" ===========> ");
       commit("setLoading", true);
       firebase
         .firestore()
         .collection("user")
         .get()
-        .then(function(querySnapshot) {
+        .then(function (querySnapshot) {
           const users = [];
-          querySnapshot.forEach(function(doc) {
-            console.log(doc.data().key, " => ", doc.data());
+          querySnapshot.forEach(function (doc) {
+            // console.log(doc.data().key, " => ", doc.data());
             users.push({
               email: doc.data().email,
               firstName: doc.data().firstName,
@@ -218,7 +209,7 @@ export default {
               id: doc.data().id,
               color: doc.data().color,
               avatar: doc.data().avatar,
-              admin: doc.data().admin,
+              admin: doc.data().admin
             });
           });
           commit("setLoadedEmployees", users);
@@ -240,23 +231,9 @@ export default {
         .doc(payload.email)
         .set(payload)
         .then(() => {
-          console.log("Document written with ID: ", payload.email);
+          // console.log("Document written with ID: ", payload.email);
           commit("setLoading", false);
-          alert('Your request has been successefully submited')
-        //   firebase
-        //     .auth()
-        //     .sendPasswordResetEmail(payload.email)
-        //     .then(function() {
-        //       // Email sent.
-        //     })
-        //     .catch(function(error) {
-        //       // An error happened.
-        //     });
-        //   firebase
-        //     .auth()
-        //     .createUserWithEmailAndPassword(payload.email, "112233");
-        //   commit("createEmployee", employee);
-        //   commit("setLoading", false);
+          alert("Your request has been successefully submited");
         })
         .catch(error => {
           commit("setLoading", false);
@@ -274,7 +251,7 @@ export default {
             id: response.user.uid
           };
           commit("setUser", newUser);
-          
+          commit("setLoading", false);
         })
         .catch(error => {
           commit("setError", error);
@@ -318,22 +295,18 @@ export default {
     },
     logout({ commit }) {
       firebase.auth().signOut();
-      this.$router.push({ name: 'signin' });
       commit("setUser", null);
+      commit("setLoading", false);
     },
     updatePassword({ commit }, payload) {
-      var user = firebase.auth().currentUser;
-      console.log(user);
-      user
+      firebase.auth().currentUser
         .updatePassword(payload)
-        .then(function() {
-          // Update successful.
+        .then(function () {
           firebase.auth().signOut();
           commit("setUser", null);
-          this.$router.push({ name: 'signin' });
+          commit("setLoading", false);
         })
-        .catch(function(error) {
-          // An error happened.
+        .catch(function (error) {
         });
     }
   },
@@ -345,9 +318,9 @@ export default {
       return state.userId;
     },
     loadedEmployees(state) {
-      console.log("nestooooooo" + state.loadedEmployees.length);
+      // console.log("nestooooooo" + state.loadedEmployees.length);
       return state.loadedEmployees;
-      console.log("staa");
+      // console.log("staa");
     },
     loadUser(state) {
       return state.userData;

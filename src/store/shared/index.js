@@ -28,7 +28,7 @@ export default {
       state.projectData.push(payload);
     },
     setLoadedWorkingHours(state, payload) {
-      console.log(payload.workingHours);
+      // console.log(payload.workingHours);
       state.workingHours.push(payload);
       // console.log(state.workingHours);
     }
@@ -51,7 +51,7 @@ export default {
         .doc()
         .set(timesheet)
         .then(() => {
-          console.log("Document written with ID: ", timesheet);
+          // console.log("Document written with ID: ", timesheet);
           commit("createTimeSheet", timesheet);
           commit("setLoading", false);
         })
@@ -70,7 +70,7 @@ export default {
         .get()
         .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         commit("setProjectData", doc.data());
         commit("setLoading", false);
         });
@@ -89,7 +89,7 @@ export default {
         .then(function(querySnapshot) {
           const timesheets = [];
           querySnapshot.forEach(function(doc) {
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.id, " => ", doc.data());
             timesheets.push({
               createdAt: doc.data().createdAt,
               happiness: doc.data().happiness,
@@ -108,7 +108,7 @@ export default {
     },
     loadedWorkingHours({ commit }, id) {
       commit("setLoading", true);
-      console.log("p" + id);
+      // console.log("p" + id);
       firebase
         .firestore()
         .collection("timesheet")
@@ -116,7 +116,7 @@ export default {
         .get()
         .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
+        // console.log(doc.id, " => ", doc.data());
         commit("setLoadedWorkingHours", doc.data());
         commit("setLoading", false);
         });

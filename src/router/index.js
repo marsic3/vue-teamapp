@@ -75,5 +75,5 @@ export default new Router({
 
     },
   ],
-  mode: 'history'
+    mode: 'history'
 })

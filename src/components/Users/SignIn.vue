@@ -80,10 +80,10 @@
                     password: this.password
                 })
             },
-            signGoogleIn() {
-                var provider = new firebase.auth.GoogleAuthProvider();
-                this.$store.dispatch('signGoogle', provider)
-            },
+            // signGoogleIn() {
+            //     var provider = new firebase.auth.GoogleAuthProvider();
+            //     this.$store.dispatch('signGoogle', provider)
+            // },
             onDismissed() {
                 this.$store.dispatch('clearError')
             },

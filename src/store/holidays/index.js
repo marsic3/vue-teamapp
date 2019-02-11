@@ -18,8 +18,7 @@ export default ({
                 .then(function (querySnapshot) {
                     const holidays = []
                     querySnapshot.forEach(function (doc) {
-                        // console.log(JSON.stringify(doc.data()))
-                        console.log(doc.id, " => ", doc.data())
+                        // console.log(doc.id, " => ", doc.data())
                         holidays.push({
                             Id: doc.data().Id,
                             StartTime: doc.data().StartTime.toDate(),
@@ -49,15 +48,5 @@ export default ({
         loadedHolidays(state) {
             return state.loadedHolidays
         },
-        // feautureHolidays(state, getters) {
-        //     return getters.loadedHolidays.slice(0, 5)
-        // },
-        // loadedProject(state) {
-        //     return (projectId) => {
-        //         return state.loadedHolidays.find((p) => {
-        //             return p.id == projectId
-        //         })
-        //     }
-        // },
     }
 })

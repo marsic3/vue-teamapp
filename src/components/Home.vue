@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height>
+  <v-container fluid fill-height v-if="userIsAuth">
   <v-layout justify-center align-center>
   <v-flex  xs6 sm12 lg12 >
   <v-container fluid grid-list-xl align-content-center>
@@ -22,13 +22,6 @@
       <v-flex d-flex lg6 sm6 xs12>
         <widget icon="timelapse" :title="loadedworkingHours/projects" subTitle= 'Average hours per project' color="#D4E157"/>
       </v-flex>
-      <!-- DataTable&TimeLine Starts -->
-
-      <!-- DataTable&TimeLine Ends -->
-      
-      <!-- <v-flex d-flex lg12 sm12 xs12>
-        <user-tree-view />
-      </v-flex> -->
       <v-flex d-flex lg12 sm12 xs12>
         <stepper/>
       </v-flex>
@@ -60,6 +53,9 @@ export default {
 
   },
   computed: {
+      userIsAuth() {
+        return this.$store.getters.user !== null && this.$store.getters.user !== 'undefined'
+      },
       users(){
         return this.$store.getters.loadedEmployees.length
       },
@@ -73,7 +69,6 @@ export default {
       let lista = this.$store.getters.loadedTimeSheet
       for (let i = 0; i < lista.length; i++) {
           this.sum += Number(lista[i].workingHours)
-          // console.log(lista[i].workingHours)
         }
         return this.sum
       },

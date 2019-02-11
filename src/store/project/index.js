@@ -60,7 +60,7 @@ export default ({
                 .then(function (querySnapshot) {
                     const projects = []
                     querySnapshot.forEach(function (doc) {
-                        console.log(doc.id, " => ", doc.data())
+                        // console.log(doc.id, " => ", doc.data())
                         projects.push({
                             projectName: doc.data().projectName,
                             email: doc.data().email,
@@ -96,7 +96,7 @@ export default ({
             let uploadTask
             firebase.firestore().collection("projects").doc("p" + payload.id).set(project)
                 .then((user) => {
-                    console.log("Document successfully written!" + user)
+                    console.log("Document successfully written!")
                 }).then(() => {
                     const filename = payload.image.name
                     const ext = filename.slice(filename.lastIndexOf('.'))
@@ -145,7 +145,7 @@ export default ({
 
             firebase.firestore().collection("projects").doc("p" + payload.id).update(updateObj)
                 .then(() => {
-                    console.log("p" + payload.id)
+                    // console.log("p" + payload.id)
                     commit('updateProject', payload)
                     commit('setLoading', false)
 
