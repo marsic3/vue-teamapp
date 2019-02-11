@@ -1,5 +1,8 @@
-# demoapp
+# demo
 
+Check out the demo: https://teamapp-63a91.firebaseapp.com/
+email: test@test.com
+password: 112233
 > A Vue.js project
 
 ## Build Setup
