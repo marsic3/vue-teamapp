@@ -1,6 +1,9 @@
 # demoapp
 
 > A Vue.js project
+> Switch to Main Branch and check demo
+Check out the demo: https://teamapp-63a91.firebaseapp.com/ email: test@test.com password: 112233
+
 
 ## Build Setup
 
